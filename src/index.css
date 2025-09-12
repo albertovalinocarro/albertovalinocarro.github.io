@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* Force dark mode to be class-based */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Configure theme directly here */
+@theme {
+  /* Fonts */
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Satoshi", sans-serif;
+
+  /* Custom colors */
+  --color-debug: hotpink;
+  --color-brand: oklch(0.65 0.2 280); /* example: purple */
+  --color-accent: oklch(0.75 0.2 120); /* example: green */
+
+  /* Breakpoints */
+  --breakpoint-3xl: 1920px;
+}
+
+/* Optional: smooth transitions */
+* {
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+
+/* Print styles */
+@media print {
+  .no-print { display: none !important; }
+  html { color-scheme: light; }
+  body { background: white !important; color: black !important; }
+}
