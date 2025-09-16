@@ -1,37 +1,42 @@
-import { resume } from "./data/resume";
+import { useState } from "react";
+import { resume as resumeEn } from "./data/resume";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { Section } from "./components/Section";
 import { ContactBar } from "./components/ContactBar";
+import {TranslationToggle} from "./components/TranslationToggle.tsx";
 
 export default function App() {
+    const [currentResume, setCurrentResume] = useState(resumeEn);
+
     return (
         <div className="min-h-dvh bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
             {/* Header */}
             <header className="sticky top-0 z-10 backdrop-blur bg-white/80 dark:bg-zinc-900/80 border-b border-zinc-200 dark:border-zinc-800">
                 <div className="mx-auto max-w-3xl px-4 py-4 flex items-center justify-between">
                     <div>
-                        <h1 className="text-xl font-bold">{resume.name}</h1>
+                        <h1 className="text-xl font-bold">{currentResume.name}</h1>
                     </div>
                     <div className="flex items-center gap-3">
+                        <TranslationToggle onSwitch={setCurrentResume} />
                         <ThemeToggle />
                     </div>
                 </div>
             </header>
 
             <div className="mx-auto max-w-3xl px-4 mt-4">
-                <h2 className="text-2xl font-bold">{resume.title}</h2>
+                <h2 className="text-2xl font-bold">{currentResume.title}</h2>
                 <ContactBar />
             </div>
 
             {/* Main */}
             <main className="mx-auto max-w-3xl px-4 py-8 space-y-12">
-                <Section id="summary" title="Professional Summary">
-                    <p className="leading-relaxed">{resume.summary}</p>
+                <Section id="summary" title={currentResume.labels?.summary ?? "Resumen Profesional"}>
+                    <p className="leading-relaxed">{currentResume.summary}</p>
                 </Section>
 
-                <Section id="skills" title="Core Skills">
+                <Section id="skills" title={currentResume.labels?.skills ?? "Habilidades Clave"}>
                     <div className="flex flex-wrap gap-2">
-                        {resume.skills.map((s) => (
+                        {currentResume.skills.map((s) => (
                             <span
                                 key={s}
                                 className="rounded-full border border-zinc-300 dark:border-zinc-700 px-3 py-1 text-sm"
@@ -42,9 +47,9 @@ export default function App() {
                     </div>
                 </Section>
 
-                <Section id="experience" title="Professional Experience">
+                <Section id="experience" title={currentResume.labels?.experience ?? "Experiencia Profesional"}>
                     <div className="space-y-6">
-                        {resume.experience.map((job) => (
+                        {currentResume.experience.map((job) => (
                             <article
                                 key={job.role + job.company}
                                 className="rounded-2xl border border-zinc-200 dark:border-zinc-800 p-4"
@@ -65,9 +70,9 @@ export default function App() {
                     </div>
                 </Section>
 
-                <Section id="education" title="Education">
+                <Section id="education" title={currentResume.labels?.education ?? "Educación"}>
                     <ul className="space-y-3">
-                        {resume.education.map((e) => (
+                        {currentResume.education.map((e) => (
                             <li key={e.title} className="flex items-baseline justify-between">
                                 <span>{e.title}</span>
                                 <span className="text-sm opacity-70">{e.year}</span>
@@ -76,17 +81,17 @@ export default function App() {
                     </ul>
                 </Section>
 
-                <Section id="projects" title="Projects">
+                <Section id="projects" title={currentResume.labels?.projects ?? "Proyectos"}>
                     <ul className="list-disc pl-5 space-y-2">
-                        {resume.projects.map((p) => (
+                        {currentResume.projects.map((p) => (
                             <li key={p}>{p}</li>
                         ))}
                     </ul>
                 </Section>
 
-                <Section id="extras" title="Extras">
+                <Section id="extras" title={currentResume.labels?.extras ?? "Extras"}>
                     <ul className="list-disc pl-5 space-y-2">
-                        {resume.extras.map((x) => (
+                        {currentResume.extras.map((x) => (
                             <li key={x}>{x}</li>
                         ))}
                     </ul>
@@ -95,7 +100,7 @@ export default function App() {
 
             {/* Footer */}
             <footer className="mx-auto max-w-3xl px-4 py-10 text-sm opacity-70 text-center border-t border-zinc-200 dark:border-zinc-800">
-                © {new Date().getFullYear()} {resume.name}. All rights reserved.
+                © {new Date().getFullYear()} {currentResume.name}. All rights reserved.
             </footer>
         </div>
     );
