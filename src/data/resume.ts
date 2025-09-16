@@ -3,6 +3,15 @@ export const resume = {
     title: "Senior Full-Stack Developer",
     email: "albertovcarro@gmail.com",
 
+    labels: {
+        summary: "Professional Summary",
+        skills: "Core Skills",
+        experience: "Professional Experience",
+        education: "Education",
+        projects: "Projects",
+        extras: "Extras",
+    },
+
     summary:
         "Full-Stack Developer with 8+ years of experience building secure, scalable SaaS platforms using Laravel, PHP, React, JavaScript, MySQL, and AWS. Strong focus on clean code, microservices, and cloud-native solutions. Committed to building applications optimized for performance and long-term maintainability. Seeking a technically challenging full-stack remote role where I can contribute to long-term product success." ,
 
