@@ -19,6 +19,9 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_TRANSLATE_API_KEY: ${{ secrets.VITE_TRANSLATE_API_KEY }}
       - run: echo > dist/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
