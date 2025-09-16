@@ -4,7 +4,8 @@ import { Languages } from "lucide-react";
 
 type Resume = typeof resume;
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = "https://cv-translation-api.vercel.app/api/translate";
+const VITE_TRANSLATE_API_KEY = "M@ad0aRx/2F*CXc|&DJtuL7Moi-JTvnxonJiE8`WSs/c2gV6uJ6b,@=v"
 
 export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void }) {
   const [lang, setLang] = useState<"en" | "es">("en");
@@ -42,7 +43,7 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "x-api-key": import.meta.env.VITE_TRANSLATE_API_KEY,
+              "x-api-key": VITE_TRANSLATE_API_KEY,
             },
             body: JSON.stringify({ resume, targetLang: "Spanish" }),
           });
