@@ -4,7 +4,7 @@ import { Languages } from "lucide-react";
 
 type Resume = typeof resume;
 
-const API_URL = import.meta.env.VITE_API_URL; 
+const API_URL = import.meta.env.VITE_API_URL;
 
 export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void }) {
   const [lang, setLang] = useState<"en" | "es">("en");
@@ -40,9 +40,9 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
         } else {
           const res = await fetch(API_URL, {
             method: "POST",
-            headers: { 
+            headers: {
               "Content-Type": "application/json",
-              "x-api-key": import.meta.env.TRANSLATE_API_KEY,
+              "x-api-key": import.meta.env.VITE_TRANSLATE_API_KEY,
             },
             body: JSON.stringify({ resume, targetLang: "Spanish" }),
           });
