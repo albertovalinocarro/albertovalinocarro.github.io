@@ -6,8 +6,8 @@ It features **dark/light mode**, a clean responsive design, AI-powered on-the-fl
 ----
 
 ## ✨ Features
-- ⚡ Built with [Vite](https://vitejs.dev/) for fast development and optimized builds
-- 🎨 Styled with [Tailwind CSS v4](https://tailwindcss.com/)
+- ⚡ Built with [Vite] for fast development and optimised builds
+- 🎨 Styled with [Tailwind CSS v4]
 - 🌙 Dark/Light mode toggle (with Lucide icons)
 - 📱 Responsive and mobile-friendly design
 - 📑 Sections: Summary, Skills, Experience, Education, Projects, Extras
@@ -23,6 +23,7 @@ It features **dark/light mode**, a clean responsive design, AI-powered on-the-fl
 - **Lucide Icons** for UI elements
 - **GitHub Pages** for hosting
 - **LangChain and OpenAI** for on-the-fly translation
+- **Snyk** integration for securing code, dependencies, containers, and infrastructure as code.
 
 ----
 
