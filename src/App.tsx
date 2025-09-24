@@ -4,6 +4,7 @@ import { ThemeToggle } from "./components/ThemeToggle";
 import { Section } from "./components/Section";
 import { ContactBar } from "./components/ContactBar";
 import {TranslationToggle} from "./components/TranslationToggle.tsx";
+import { DeployBadge } from "./components/DeployBadge.tsx";
 
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
@@ -100,6 +101,7 @@ export default function App() {
 
             {/* Footer */}
             <footer className="mx-auto max-w-3xl px-4 py-10 text-sm opacity-70 text-center border-t border-zinc-200 dark:border-zinc-800">
+                <DeployBadge />
                 © {new Date().getFullYear()} {currentResume.name}. All rights reserved.
             </footer>
         </div>
