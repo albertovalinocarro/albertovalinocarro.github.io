@@ -1,3 +1,5 @@
+export const CV_VERSION = "2025-09-25-v1";
+
 export const resume = {
     name: "Alberto Valiño Carro",
     title: "Senior Full-Stack Developer",

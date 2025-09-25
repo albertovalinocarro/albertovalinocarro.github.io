@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { resume } from "../data/resume";
+import { resume, CV_VERSION } from "../data/resume";
 import { Languages, Loader2 } from "lucide-react";
 
 type Resume = typeof resume;
@@ -12,35 +12,40 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
   const [lang, setLang] = useState<"en" | "es">("en");
   const [loading, setLoading] = useState(false);
 
-  // On mount -> check cache
+  // On mount -> check cached Spanish resume
   useEffect(() => {
     const cached = localStorage.getItem("resume_es");
     if (cached) {
       try {
-        const { data, timestamp } = JSON.parse(cached);
-        if (Date.now() - timestamp < LIFETIME_MS) {
-          if (localStorage.getItem("lang") === "es") {
-            onSwitch(data);
-            setLang("es");
-          }
-        } else {
-          localStorage.removeItem("resume_es"); // expired
+        const { data, timestamp, version } = JSON.parse(cached);
+        const valid =
+          Date.now() - timestamp < LIFETIME_MS && version === CV_VERSION;
+
+        if (valid && localStorage.getItem("lang") === "es") {
+          onSwitch(data);
+          setLang("es");
+        } else if (!valid) {
+          localStorage.removeItem("resume_es"); // expired or outdated
         }
       } catch {
-        console.warn("Invalid cached Spanish resume, clearing.");
+        console.warn("Invalid cached translation, clearing");
         localStorage.removeItem("resume_es");
       }
     }
   }, [onSwitch]);
 
+  // Handle translate button click
   async function handleTranslate() {
     if (lang === "en") {
       setLoading(true);
       try {
         const cached = localStorage.getItem("resume_es");
         if (cached) {
-          const { data, timestamp } = JSON.parse(cached);
-          if (Date.now() - timestamp < LIFETIME_MS) {
+          const { data, timestamp, version } = JSON.parse(cached);
+          const valid =
+            Date.now() - timestamp < LIFETIME_MS && version === CV_VERSION;
+
+          if (valid) {
             onSwitch(data);
             setLang("es");
             localStorage.setItem("lang", "es");
@@ -64,9 +69,14 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
         const data = await res.json();
         onSwitch(data.translated);
 
+        // Store with TTL + version
         localStorage.setItem(
           "resume_es",
-          JSON.stringify({ data: data.translated, timestamp: Date.now() })
+          JSON.stringify({
+            data: data.translated,
+            timestamp: Date.now(),
+            version: CV_VERSION,
+          })
         );
         localStorage.setItem("lang", "es");
 
@@ -82,7 +92,7 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
       localStorage.setItem("lang", "en");
     }
   }
-
+  // Render button
   return (
     <button
       onClick={handleTranslate}
