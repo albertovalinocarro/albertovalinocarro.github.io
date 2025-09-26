@@ -4,12 +4,10 @@ import { ThemeToggle } from "./components/ThemeToggle";
 import { Section } from "./components/Section";
 import { ContactBar } from "./components/ContactBar";
 import {TranslationToggle} from "./components/TranslationToggle.tsx";
-import { DeployBadge } from "./components/DeployBadge.tsx";
-import { usePageViews } from "./hooks/usePageViews";
+import Footer from "./components/Footer.tsx";
 
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
-    const views = usePageViews();
 
     return (
         <div className="min-h-dvh bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
@@ -102,20 +100,7 @@ export default function App() {
             </main>
 
             {/* Footer */}
-            <footer className="mx-auto max-w-3xl px-4 py-8 text-sm border-t border-zinc-200 dark:border-zinc-800">
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left opacity-80">
-                    <DeployBadge />
-
-                    <div className="flex gap-4">
-                    <span>👀 {views?.total ?? "..."} total visits.</span>
-                    <span>🧑‍💻 {views?.unique ?? "..."} unique visitors.</span>
-                    </div>
-
-                    <div>
-                    © {new Date().getFullYear()} {currentResume.name}
-                    </div>
-                </div>
-            </footer>
+            <Footer currentResume={currentResume} />
         </div>
     );
 }
