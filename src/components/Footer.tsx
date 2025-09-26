@@ -21,6 +21,7 @@ function Footer({ currentResume }: { currentResume: any }) {
               <Info size={14} className="opacity-70 cursor-help" />
             </Tooltip>
           </span>
+          |
           <span className="flex items-center gap-1">
             🧑‍💻 {views?.unique ?? "..."}
             <Tooltip text="Unique visitors (per device/browser)">

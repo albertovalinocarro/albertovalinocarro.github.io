@@ -26,7 +26,7 @@ export function ThemeToggle() {
     return (
         <button
             onClick={toggle}
-            className="relative flex items-center w-14 h-8 rounded-full bg-zinc-300 dark:bg-zinc-700 p-1 transition-colors hover:opacity-90"
+            className="relative flex items-center w-14 h-8 rounded-full bg-zinc-300 dark:bg-zinc-700 p-1 transition-colors hover:opacity-90 active:scale-95"
             aria-label="Toggle theme"
         >
             {/* Sun on left */}
@@ -38,8 +38,8 @@ export function ThemeToggle() {
                 title={isDark ? "Switch to light mode" : "Switch to dark mode"}
                 className={`h-6 w-6 rounded-full shadow-md transform transition-transform duration-300 ring-2 ring-white/50 ${
                     isDark
-                        ? "translate-x-6 bg-blue-400"
-                        : "translate-x-0 bg-yellow-400"
+                        ? "translate-x-6 bg-indigo-500"
+                        : "translate-x-0 bg-yellow-500"
                 }`}
             />
         </button>
