@@ -1,32 +1,34 @@
 # 💼 Personal CV Website — Alberto Valiño Carro
 
-A modern **personal CV website** built with **React + Vite + Tailwind CSS v4**.  
-It features **dark/light mode**, a clean responsive design, AI-powered on-the-fly translation, and deployment to **GitHub Pages**.
+My interactive CV website built with React, Tailwind, Vite, and deployed on GitHub Pages.
+Backed by Vercel serverless functions and Supabase, with AI-powered translation and analytics.
+
+Live site: 👉 https://albertovalinocarro.github.io/
 
 ----
 
 ## ✨ Features
-- ⚡ Built with [Vite] for fast development and optimised builds
-- 🎨 Styled with [Tailwind CSS v4]
-- 🌙 Dark/Light mode toggle (with Lucide icons)
+- 🌙 Dark/Light mode
 - 📱 Responsive and mobile-friendly design
-- 📑 Sections: Summary, Skills, Experience, Education, Projects, Extras
-- 🌍 Ready for multilingual support (English + Spanish)
-- 🚀 Continuous deployment to GitHub Pages with GitHub Actions
+- 🌐 AI-powered translation (EN ↔ ES) with caching + versioning
+- 📊 Visitor analytics — total visits + unique visitors (Supabase)
+- 🚀 CI/CD badge (last commit via GitHub API)
+- 🎨 Polished UI — skill badges, timeline cards, animations, tooltips
+- 🔍 Observability with LangSmith (traced AI calls)
 
 ----
 
 ## 🛠️ Tech Stack
-- **React 18** + **TypeScript**
-- **Vite** for bundling
-- **Tailwind CSS v4** (CSS-first configuration)
-- **Lucide Icons** for UI elements
-- **GitHub Pages** for hosting
-- **LangChain and OpenAI** for on-the-fly translation
-- **Snyk** integration for securing code, dependencies, containers, and infrastructure as code.
+- **Frontend**: React + Tailwind v4 + Framer Motion
+- **Backend**: Vercel Functions (API routes)
+- **Database**: Supabase (Postgres)
+- **AI**: LangChain + OpenAI
+- **Deployment**: GitHub Pages + GitHub Actions
+- **Snyk** integration for secur code, dependencies, containers, and infrastructure as code.
 
 ----
 
+👨‍💻 Author
 
-Deployed site:
-👉 https://albertovalinocarro.github.io/
+Alberto Valiño Carro.
+
