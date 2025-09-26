@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 
-// Custom hook to track and update page views
+interface ViewCounts {
+  total: number;
+  unique: number;
+}
+
+// Hook to fetch and return page view counts
 export function usePageViews() {
-  const [count, setCount] = useState<number | null>(null);
+  const [views, setViews] = useState<ViewCounts | null>(null);
 
   useEffect(() => {
     async function fetchViews() {
       try {
-        // Increment on load
         const res = await fetch("https://cv-translation-api.vercel.app/api/views", {
           method: "POST",
         });
         const data = await res.json();
-        setCount(data.count);
+        setViews(data);
       } catch (err) {
         console.error("Failed to update views", err);
       }
@@ -20,5 +24,5 @@ export function usePageViews() {
     fetchViews();
   }, []);
 
-  return count;
+  return views;
 }
