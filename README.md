@@ -1,6 +1,6 @@
 # 💼 Personal CV Website — Alberto Valiño Carro
 
-My interactive CV website built with React, Tailwind, Vite, and deployed on GitHub Pages.
+My interactive CV website, built with React, Tailwind, Vite, and deployed on GitHub Pages.
 Backed by Vercel serverless functions and Supabase, with AI-powered translation and analytics.
 
 Live site: 👉 https://albertovalinocarro.github.io/
@@ -24,7 +24,7 @@ Live site: 👉 https://albertovalinocarro.github.io/
 - **Database**: Supabase (Postgres)
 - **AI**: LangChain + OpenAI
 - **Deployment**: GitHub Pages + GitHub Actions
-- **Snyk** integration for secur code, dependencies, containers, and infrastructure as code.
+- **Snyk** integration to secure code, dependencies, containers, and IaC
 
 ----
 
