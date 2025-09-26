@@ -27,10 +27,10 @@ export function DeployBadge() {
 
   return (
     <div className="text-sm opacity-70">
-      - Last updated: {commit.date} (
+      - 🚀 Last updated: {commit.date} (
       <a href={commit.url} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-100">
         {commit.sha}
-      </a>
+      </a> 
       ) -
     </div>
   );
