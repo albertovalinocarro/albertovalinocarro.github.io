@@ -32,7 +32,7 @@ export function ThemeToggle() {
             {/* Sun on left */}
             <Sun size={14} className="absolute left-1 text-yellow-500" />
             {/* Moon on right */}
-            <Moon size={14} className="absolute right-1 bg-indigo-500" />
+            <Moon size={14} className="absolute right-1 text-indigo-500" />
             {/* Knob */}
             <span
                 title={isDark ? "Switch to light mode" : "Switch to dark mode"}
