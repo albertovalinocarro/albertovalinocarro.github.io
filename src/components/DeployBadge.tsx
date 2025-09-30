@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { GitCommit } from "lucide-react";
 
 interface CommitInfo {
   date: string;
@@ -26,8 +27,9 @@ export function DeployBadge() {
   if (!commit) return null;
 
   return (
-    <div className="text-sm opacity-70">
-      🚀 Last updated: {commit.date} (
+    <div className="flex items-center gap-2 text-sm opacity-80">
+       <GitCommit size={16} className="text-zinc-600 dark:text-zinc-300 hover:text-indigo-500" />
+      Last updated: {commit.date} (
       <a href={commit.url} target="_blank" rel="noopener noreferrer" className="underline hover:opacity-100">
         {commit.sha}
       </a> 

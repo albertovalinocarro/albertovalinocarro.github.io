@@ -1,4 +1,4 @@
-import { Info } from "lucide-react";
+import { Eye, Users, Info } from "lucide-react";
 import { Tooltip } from "./Tooltip";
 import { usePageViews } from "../hooks/usePageViews";
 import { DeployBadge } from "./DeployBadge";
@@ -16,16 +16,18 @@ function Footer({ currentResume }: { currentResume: any }) {
         {/* Visitor counters */}
         <div className="flex gap-6 items-center">
           <span className="flex items-center gap-1">
-            👀 {views?.total ?? "..."}
+            <Eye size={16} className="opacity-70 cursor-help text-zinc-600 dark:text-zinc-300 hover:text-indigo-500" />
+            {views?.total ?? "..."}
             <Tooltip text="Total page loads, including repeat visits">
-              <Info size={14} className="opacity-70 cursor-help" />
+              <Info size={14} className="opacity-70 cursor-help text-zinc-600 dark:text-zinc-300 hover:text-indigo-500" />
             </Tooltip>
           </span>
           |
           <span className="flex items-center gap-1">
-            🧑‍💻 {views?.unique ?? "..."}
+            <Users size={16} className="opacity-70 cursor-help text-zinc-600 dark:text-zinc-300 hover:text-indigo-500" />
+            {views?.unique ?? "..."}
             <Tooltip text="Unique visitors (per device/browser)">
-              <Info size={14} className="opacity-70 cursor-help" />
+              <Info size={14} className="opacity-70 cursor-help text-zinc-600 dark:text-zinc-300 hover:text-indigo-500" />
             </Tooltip>
           </span>
         </div>
