@@ -12,8 +12,8 @@
   "dependencies": {
     "@langchain/openai": "^0.6.14",
     "@vercel/node": "^5.3.24",
-    "framer-motion": "^12.23.22",
-    "langchain": "^0.3.34",
+    "framer-motion": "^12.23.24",
+    "langchain": "^0.3.36",
     "lucide-react": "^0.545.0",
     "openai": "^5.23.2",
     "react": "^19.2.0",
