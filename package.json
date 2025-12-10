@@ -14,7 +14,7 @@
     "@vercel/node": "^5.5.6",
     "framer-motion": "^12.23.24",
     "langchain": "^0.3.36",
-    "lucide-react": "^0.553.0",
+    "lucide-react": "^0.554.0",
     "openai": "^5.23.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
