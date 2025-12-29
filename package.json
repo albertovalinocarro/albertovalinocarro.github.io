@@ -16,7 +16,7 @@
     "langchain": "^0.3.37",
     "lucide-react": "^0.555.0",
     "openai": "^5.23.2",
-    "react": "^19.2.0",
+    "react": "^19.2.1",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
