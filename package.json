@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@langchain/openai": "^1.0.0",
-    "framer-motion": "^12.23.27",
+    "framer-motion": "^12.26.1",
     "langchain": "^1.2.3",
     "lucide-react": "^0.562.0",
     "openai": "^5.23.2",
