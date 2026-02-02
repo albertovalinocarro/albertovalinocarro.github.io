@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@langchain/openai": "^1.0.0",
+    "@langchain/openai": "^1.2.1",
     "framer-motion": "^12.23.27",
     "langchain": "^1.2.3",
     "lucide-react": "^0.562.0",
