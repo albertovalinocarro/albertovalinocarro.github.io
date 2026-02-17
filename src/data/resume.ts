@@ -73,13 +73,17 @@ export const resume = {
             role: "Web Developer",
             company: "BEUTiFi.com",
             period: "Mar 2017 – Jul 2017 | Dublin, Ireland",
-            points: [],
+            points: [
+                "Developed and maintained PHP/JS features for beauty booking platform.",
+            ],
         },
         {
             role: "Web Developer",
             company: "GAIA",
             period: "Sep 2015 – Feb 2016 | A Coruña, Spain",
-            points: [],
+            points: [
+                "Full-stack support for client projects.",
+            ],
         },
     ],
 
