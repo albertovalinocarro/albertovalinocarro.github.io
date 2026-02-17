@@ -1,4 +1,4 @@
-export const CV_VERSION = "2026-02-13-v1";
+export const CV_VERSION = "2026-02-17-v1";
 
 export const resume = {
     name: "Alberto Valiño Carro",
