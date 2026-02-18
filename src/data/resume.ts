@@ -36,7 +36,7 @@ export const resume = {
         {
             role: "Senior Full-Stack Software Engineer",
             company: "Three.ie",
-            period: "2017 – Present | Dublin",
+            period: "2017 – Present | Dublin, Ireland",
             points: [
                 "Lead development of internal SaaS tools used across telecom infrastructure, legal, and finance departments.",
                 "Modernised legacy monoliths into modular Laravel + React architecture.",
