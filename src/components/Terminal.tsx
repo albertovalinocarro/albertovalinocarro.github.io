@@ -20,19 +20,19 @@ interface OutputLine {
 const COMMAND_MAP: Record<string, () => OutputLine[]> = {
     help: () => [
         { text: "Available commands:", type: "output" },
-        { text: "  whoami      — about Alberto", type: "output" },
-        { text: "  skills      — tech stack by category", type: "output" },
-        { text: "  experience  — Three Ireland role summary", type: "output" },
-        { text: "  contact     — email, LinkedIn, GitHub", type: "output" },
-        { text: "  clear       — clear the terminal", type: "output" },
-        { text: "  help        — show this message", type: "output" },
+        { text: "  whoami - about Alberto", type: "output" },
+        { text: "  skills - tech stack by category", type: "output" },
+        { text: "  experience - Three Ireland role summary", type: "output" },
+        { text: "  contact - email, LinkedIn, GitHub", type: "output" },
+        { text: "  clear - clear the terminal", type: "output" },
+        { text: "  help - show this message", type: "output" },
     ],
 
     whoami: () => [
-        { text: "Alberto Valiño Carro — Senior Full-Stack Developer", type: "success" },
+        { text: "Alberto Valiño Carro - Senior Full-Stack Developer", type: "success" },
         { text: "", type: "blank" },
         { text: "8+ years writing production PHP (Laravel) and JavaScript (React)", type: "output" },
-        { text: "at Three Ireland. Hands-on from schema design to React components —", type: "output" },
+        { text: "at Three Ireland. Hands-on from schema design to React components -", type: "output" },
         { text: "I own features end-to-end, debug deep in the stack, and leave code", type: "output" },
         { text: "measurably better than I found it.", type: "output" },
         { text: "", type: "blank" },
@@ -50,7 +50,7 @@ const COMMAND_MAP: Record<string, () => OutputLine[]> = {
     ],
 
     experience: () => [
-        { text: "Three Ireland — Senior Full-Stack Developer (2017 – Present)", type: "success" },
+        { text: "Three Ireland - Senior Full-Stack Developer (2017 – Present)", type: "success" },
         { text: "", type: "blank" },
         { text: "• Full-stack ownership: migrations, Eloquent, service classes,", type: "output" },
         { text: "  queued jobs, and React components from spec to production.", type: "output" },
