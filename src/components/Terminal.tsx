@@ -122,12 +122,14 @@ export function Terminal() {
     // Stash current input while navigating history
     const inputStash = useRef("");
 
-    const bottomRef = useRef<HTMLDivElement>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    // Auto-scroll to bottom whenever lines update
+    // Scroll the terminal's own container to the bottom — uses scrollTop so
+    // the page viewport is never affected.
     useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+        const el = scrollRef.current;
+        if (el) el.scrollTop = el.scrollHeight;
     }, [lines]);
 
     function submit() {
@@ -205,7 +207,7 @@ export function Terminal() {
             </div>
 
             {/* Scrollback area */}
-            <div className="bg-zinc-950 p-4 h-72 overflow-y-auto" role="log" aria-live="polite" aria-label="Terminal output">
+            <div ref={scrollRef} className="bg-zinc-950 p-4 h-72 overflow-y-auto" role="log" aria-live="polite" aria-label="Terminal output">
                 {lines.map((line, i) => (
                     <div
                         key={i}
@@ -218,7 +220,6 @@ export function Terminal() {
                         {line.type === "blank" ? "\u00A0" : line.text}
                     </div>
                 ))}
-                <div ref={bottomRef} />
             </div>
 
             {/* Input row */}
