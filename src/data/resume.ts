@@ -2,7 +2,7 @@ export const CV_VERSION = "2026-03-07-v3-ic-focus";
 
 export const resume = {
     name: "Alberto Valiño Carro",
-    title: "Senior Full-Stack Engineer",
+    title: "Senior Full-Stack Developer",
     email: "albertovcarro@gmail.com",
 
     labels: {
@@ -15,7 +15,7 @@ export const resume = {
     },
 
     summary:
-        "Senior Full-Stack Engineer with 8+ years writing production PHP (Laravel) and JavaScript (React). Hands-on throughout the full stack; schema design, query optimisation, REST API contracts, async job queues, and React component architecture. I own features end-to-end, debug deep in the stack, and leave code measurably better than I found it. Seeking a technically challenging full-stack remote role where I can contribute to long-term product success.",
+        "Senior Full-Stack Developer with 8+ years writing production PHP (Laravel) and JavaScript (React). Hands-on throughout the full stack; schema design, query optimisation, REST API contracts, async job queues, and React component architecture. I own features end-to-end, debug deep in the stack, and leave code measurably better than I found it. Seeking a technically challenging full-stack remote role where I can contribute to long-term product success.",
 
     skills: [
         "PHP & Laravel",
