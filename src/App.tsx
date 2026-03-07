@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { resume as resumeEn } from "./data/resume";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { Section } from "./components/Section";
@@ -36,10 +37,23 @@ export default function App() {
                 </Section>
 
                 <Section id="skills" title={currentResume.labels?.skills ?? "Habilidades Clave"}>
-                    <div className="flex flex-wrap gap-2">
+                    <motion.div
+                        className="flex flex-wrap gap-2"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={{
+                            hidden: {},
+                            visible: { transition: { staggerChildren: 0.06 } },
+                        }}
+                    >
                         {currentResume.skills.map((s) => (
-                            <span
+                            <motion.span
                                 key={s}
+                                variants={{
+                                    hidden: { opacity: 0, y: 10 },
+                                    visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
+                                }}
                                 className="
                                     rounded-full px-3 py-1 text-sm
                                     bg-zinc-100 dark:bg-zinc-800
@@ -49,9 +63,9 @@ export default function App() {
                                 "
                             >
                                 {s}
-                            </span>
+                            </motion.span>
                         ))}
-                    </div>
+                    </motion.div>
                 </Section>
 
                 <Section id="experience" title={currentResume.labels?.experience ?? "Experiencia Profesional"}>
