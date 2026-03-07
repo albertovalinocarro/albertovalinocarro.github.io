@@ -42,7 +42,7 @@ export const resume = {
                 "Refactored legacy spaghetti PHP into testable service-oriented Laravel code; introduced PHPUnit test suites from near-zero coverage and enforced PR review standards.",
                 "Built and maintained RESTful APIs with versioned endpoints and OpenAPI docs; handled auth via Laravel Sanctum.",
                 "Engineered async job queues (Laravel Queues + SQS) for high-volume reporting, decoupling slow operations from HTTP requests and handling traffic spikes gracefully.",
-                "Optimised slow MySQL queries using EXPLAIN, composite indexes, and query restructuring — resolving production performance incidents and reducing critical report query times significantly.",
+                "Optimised slow MySQL queries using EXPLAIN, composite indexes, and query restructuring. Resolving production performance incidents and reducing critical report query times significantly.",
                 "Delivered React frontend features with TypeScript and hooks; improved component reusability and reduced regression bugs.",
                 "Built Docker-based dev environments mirroring production and authored GitHub Actions workflows for linting, testing, and blue-green deployments to AWS EC2.",
                 "Mentored junior developers through code review, pair programming, and onboarding docs.",
