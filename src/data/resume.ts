@@ -34,7 +34,7 @@ export const resume = {
 
     experience: [
         {
-            role: "Senior Full-Stack Software Engineer",
+            role: "Senior Full-Stack Software Developer",
             company: "Three.ie",
             period: "2017 – Present | Dublin, Ireland",
             points: [
