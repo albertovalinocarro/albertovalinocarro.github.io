@@ -1,4 +1,4 @@
-export const CV_VERSION = "2026-02-17-v2-portfolio";
+export const CV_VERSION = "2026-03-07-v3-ic-focus";
 
 export const resume = {
     name: "Alberto Valiño Carro",
@@ -15,7 +15,7 @@ export const resume = {
     },
 
     summary:
-        "Senior Full-Stack Developer with 8+ years of experience building scalable SaaS platforms and internal data systems using Laravel, PHP, React, and AWS. I design robust backend architectures, modernise legacy systems, and deliver reliable full-stack solutions used by cross-functional teams. Passionate about clean architecture, performance, and long-term product impact. Seeking a technically challenging full-stack remote role where I can contribute to long-term product success.",
+        "Senior Full-Stack Developer with 8+ years writing production PHP (Laravel) and JavaScript (React). Hands-on throughout the full stack; schema design, query optimisation, REST API contracts, async job queues, and React component architecture. I own features end-to-end, debug deep in the stack, and leave code measurably better than I found it. Seeking a technically challenging full-stack remote role where I can contribute to long-term product success.",
 
     skills: [
         "PHP & Laravel",
@@ -38,10 +38,14 @@ export const resume = {
             company: "Three.ie",
             period: "2017 – Present | Dublin, Ireland",
             points: [
-                "Lead development of internal SaaS tools used across telecom infrastructure, legal, and finance departments.",
-                "Modernised legacy monoliths into modular Laravel + React architecture.",
-                "Designed APIs, async processing pipelines, and scalable data workflows.",
-                "Collaborate with DevOps and product teams to deliver secure, automated cloud deployments.",
+                "Owned feature development across the full Laravel + React stack — writing migrations, Eloquent models, service classes, queued jobs, and React components from spec to production.",
+                "Refactored legacy spaghetti PHP into testable service-oriented Laravel code; introduced PHPUnit test suites from near-zero coverage and enforced PR review standards.",
+                "Built and maintained RESTful APIs with versioned endpoints and OpenAPI docs; handled auth via Laravel Sanctum.",
+                "Engineered async job queues (Laravel Queues + SQS) for high-volume reporting, decoupling slow operations from HTTP requests and handling traffic spikes gracefully.",
+                "Optimised slow MySQL queries using EXPLAIN, composite indexes, and query restructuring — resolving production performance incidents and reducing critical report query times significantly.",
+                "Delivered React frontend features with TypeScript and hooks; improved component reusability and reduced regression bugs.",
+                "Built Docker-based dev environments mirroring production and authored GitHub Actions workflows for linting, testing, and blue-green deployments to AWS EC2.",
+                "Mentored junior developers through code review, pair programming, and onboarding docs.",
             ],
         },
         {
