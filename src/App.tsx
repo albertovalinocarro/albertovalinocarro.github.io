@@ -6,6 +6,7 @@ import { Section } from "./components/Section";
 import { ContactBar } from "./components/ContactBar";
 import {TranslationToggle} from "./components/TranslationToggle.tsx";
 import Footer from "./components/Footer.tsx";
+import { TypingHero } from "./components/TypingHero.tsx";
 
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
@@ -26,7 +27,7 @@ export default function App() {
             </header>
 
             <div className="mx-auto max-w-3xl px-4 mt-4">
-                <h2 className="text-2xl font-bold">{currentResume.title}</h2>
+                <TypingHero />
                 <ContactBar />
             </div>
 
