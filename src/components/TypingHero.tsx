@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 const TITLES = [
-    "Senior Full-Stack Engineer",
+    "Senior Full-Stack Developer",
     "Laravel & React Developer",
-    "PHP & JavaScript Engineer",
+    "PHP & JavaScript Developer",
 ];
 
 const TYPE_SPEED_MS = 60;
