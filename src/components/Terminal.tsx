@@ -29,7 +29,7 @@ const COMMAND_MAP: Record<string, () => OutputLine[]> = {
     ],
 
     whoami: () => [
-        { text: "Alberto Valiño Carro — Senior Full-Stack Engineer", type: "success" },
+        { text: "Alberto Valiño Carro — Senior Full-Stack Developer", type: "success" },
         { text: "", type: "blank" },
         { text: "8+ years writing production PHP (Laravel) and JavaScript (React)", type: "output" },
         { text: "at Three Ireland. Hands-on from schema design to React components —", type: "output" },
@@ -50,7 +50,7 @@ const COMMAND_MAP: Record<string, () => OutputLine[]> = {
     ],
 
     experience: () => [
-        { text: "Three Ireland — Senior Full-Stack Engineer (2017 – Present)", type: "success" },
+        { text: "Three Ireland — Senior Full-Stack Developer (2017 – Present)", type: "success" },
         { text: "", type: "blank" },
         { text: "• Full-stack ownership: migrations, Eloquent, service classes,", type: "output" },
         { text: "  queued jobs, and React components from spec to production.", type: "output" },
