@@ -7,6 +7,7 @@ import { ContactBar } from "./components/ContactBar";
 import {TranslationToggle} from "./components/TranslationToggle.tsx";
 import Footer from "./components/Footer.tsx";
 import { TypingHero } from "./components/TypingHero.tsx";
+import { Terminal } from "./components/Terminal.tsx";
 
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
@@ -122,6 +123,17 @@ export default function App() {
                             <li key={x}>{x}</li>
                         ))}
                     </ul>
+                </Section>
+
+                <Section id="terminal" title="Interactive Terminal">
+                    <p className="text-sm text-zinc-500 dark:text-zinc-400 -mt-1">
+                        Try: <code className="font-mono">whoami</code>,{" "}
+                        <code className="font-mono">skills</code>,{" "}
+                        <code className="font-mono">experience</code>,{" "}
+                        <code className="font-mono">contact</code>,{" "}
+                        <code className="font-mono">help</code>
+                    </p>
+                    <Terminal />
                 </Section>
             </main>
 
