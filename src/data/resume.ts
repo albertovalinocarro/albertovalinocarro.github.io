@@ -1,4 +1,4 @@
-export const CV_VERSION = "2026-03-07-v3-ic-focus";
+export const CV_VERSION = "2026-03-09-v1-ic-focus";
 
 export const resume = {
     name: "Alberto Valiño Carro",
@@ -38,7 +38,7 @@ export const resume = {
             company: "Three.ie",
             period: "2017 – Present | Dublin, Ireland",
             points: [
-                "Owned feature development across the full Laravel + React stack — writing migrations, Eloquent models, service classes, queued jobs, and React components from spec to production.",
+                "Owned feature development across the full Laravel + React stack. Writing migrations, Eloquent models, service classes, queued jobs, and React components from spec to production.",
                 "Refactored legacy spaghetti PHP into testable service-oriented Laravel code; introduced PHPUnit test suites from near-zero coverage and enforced PR review standards.",
                 "Built and maintained RESTful APIs with versioned endpoints and OpenAPI docs; handled auth via Laravel Sanctum.",
                 "Engineered async job queues (Laravel Queues + SQS) for high-volume reporting, decoupling slow operations from HTTP requests and handling traffic spikes gracefully.",
