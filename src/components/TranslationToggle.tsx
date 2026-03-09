@@ -4,6 +4,21 @@ import { Languages, Loader2 } from "lucide-react";
 
 type Resume = typeof resume;
 
+function isValidResume(data: unknown): data is Resume {
+  if (!data || typeof data !== "object") return false;
+  const r = data as Record<string, unknown>;
+  return (
+    typeof r.name === "string" &&
+    typeof r.summary === "string" &&
+    Array.isArray(r.skills) &&
+    Array.isArray(r.experience) &&
+    Array.isArray(r.education) &&
+    Array.isArray(r.projects) &&
+    Array.isArray(r.extras) &&
+    typeof r.labels === "object" && r.labels !== null
+  );
+}
+
 const API_URL = import.meta.env.VITE_API_URL;
 const FRONTEND_KEY = import.meta.env.VITE_TRANSLATE_API_KEY;
 const LIFETIME_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
@@ -21,10 +36,10 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
         const valid =
           Date.now() - timestamp < LIFETIME_MS && version === CV_VERSION;
 
-        if (valid && localStorage.getItem("lang") === "es") {
+        if (valid && isValidResume(data) && localStorage.getItem("lang") === "es") {
           onSwitch(data);
           setLang("es");
-        } else if (!valid) {
+        } else if (!valid || !isValidResume(data)) {
           localStorage.removeItem("resume_es"); // expired or outdated
         }
       } catch {
@@ -45,7 +60,7 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
           const valid =
             Date.now() - timestamp < LIFETIME_MS && version === CV_VERSION;
 
-          if (valid) {
+          if (valid && isValidResume(data)) {
             onSwitch(data);
             setLang("es");
             localStorage.setItem("lang", "es");
@@ -55,6 +70,9 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
         }
 
         // Otherwise fetch fresh translation
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30_000);
+
         const res = await fetch(API_URL, {
           method: "POST",
           headers: {
@@ -62,18 +80,25 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
             "x-api-key": FRONTEND_KEY,
           },
           body: JSON.stringify({ resume, targetLang: "Spanish" }),
+          signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         if (!res.ok) throw new Error("Translation request failed");
 
-        const data = await res.json();
-        onSwitch(data.translated);
+        const json = await res.json();
+        const translated = json.translated;
+
+        if (!isValidResume(translated)) throw new Error("Invalid translation response");
+
+        onSwitch(translated);
 
         // Store with TTL + version
         localStorage.setItem(
           "resume_es",
           JSON.stringify({
-            data: data.translated,
+            data: translated,
             timestamp: Date.now(),
             version: CV_VERSION,
           })
