@@ -49,9 +49,9 @@ export default function App() {
                             visible: { transition: { staggerChildren: 0.06 } },
                         }}
                     >
-                        {currentResume.skills.map((s) => (
+                        {currentResume.skills.map((s, i) => (
                             <motion.span
-                                key={s}
+                                key={i}
                                 variants={{
                                     hidden: { opacity: 0, y: 10 },
                                     visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
