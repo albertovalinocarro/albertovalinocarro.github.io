@@ -28,18 +28,20 @@ export default function App() {
                 </div>
             </header>
 
-            <div className="mx-auto max-w-3xl px-4 mt-4">
-                <TypingHero />
-                <ContactBar />
+            <div className="bg-white dark:bg-zinc-900 border-b border-[#e5e5e5] dark:border-zinc-700">
+                <div className="mx-auto max-w-3xl px-4 pt-4 pb-10">
+                    <TypingHero />
+                    <ContactBar />
+                </div>
             </div>
 
             {/* Main */}
-            <main className="mx-auto max-w-3xl px-4 py-8 space-y-12">
-                <Section id="summary" title={currentResume.labels?.summary ?? "Resumen Profesional"}>
+            <main>
+                <Section index={0} id="summary" title={currentResume.labels?.summary ?? "Resumen Profesional"}>
                     <p className="leading-relaxed text-zinc-700 dark:text-zinc-300">{currentResume.summary}</p>
                 </Section>
 
-                <Section id="skills" title={currentResume.labels?.skills ?? "Habilidades Clave"}>
+                <Section index={1} id="skills" title={currentResume.labels?.skills ?? "Habilidades Clave"}>
                     <motion.div
                         className="flex flex-wrap gap-2"
                         initial="hidden"
@@ -71,7 +73,7 @@ export default function App() {
                     </motion.div>
                 </Section>
 
-                <Section id="experience" title={currentResume.labels?.experience ?? "Experiencia Profesional"}>
+                <Section index={2} id="experience" title={currentResume.labels?.experience ?? "Experiencia Profesional"}>
                     <div className="space-y-6">
                         {currentResume.experience.map((job) => (
                             <article
@@ -99,7 +101,7 @@ export default function App() {
                     </div>
                 </Section>
 
-                <Section id="education" title={currentResume.labels?.education ?? "Educación"}>
+                <Section index={3} id="education" title={currentResume.labels?.education ?? "Educación"}>
                     <ul className="space-y-3">
                         {currentResume.education.map((e) => (
                             <li key={e.title} className="flex items-baseline justify-between">
@@ -110,7 +112,7 @@ export default function App() {
                     </ul>
                 </Section>
 
-                <Section id="projects" title={currentResume.labels?.projects ?? "Proyectos"}>
+                <Section index={4} id="projects" title={currentResume.labels?.projects ?? "Proyectos"}>
                     <ul className="list-disc pl-5 space-y-2">
                         {currentResume.projects.map((p) => (
                             <li key={p}>{p}</li>
@@ -118,7 +120,7 @@ export default function App() {
                     </ul>
                 </Section>
 
-                <Section id="extras" title={currentResume.labels?.extras ?? "Extras"}>
+                <Section index={5} id="extras" title={currentResume.labels?.extras ?? "Extras"}>
                     <ul className="list-disc pl-5 space-y-2">
                         {currentResume.extras.map((x) => (
                             <li key={x}>{x}</li>
@@ -126,11 +128,11 @@ export default function App() {
                     </ul>
                 </Section>
 
-                <Section id="contact" title={currentResume.labels?.contact ?? "Get In Touch"}>
+                <Section index={6} id="contact" title={currentResume.labels?.contact ?? "Get In Touch"}>
                     <ContactForm labels={currentResume.labels} />
                 </Section>
 
-                <Section id="terminal" title="Interactive Terminal">
+                <Section index={7} id="terminal" title="Interactive Terminal">
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 -mt-1">
                         Try: <code className="font-mono">whoami</code>,{" "}
                         <code className="font-mono">skills</code>,{" "}
@@ -138,7 +140,9 @@ export default function App() {
                         <code className="font-mono">contact</code>,{" "}
                         <code className="font-mono">help</code>
                     </p>
-                    <Terminal />
+                    <div className="mt-6">
+                        <Terminal />
+                    </div>
                 </Section>
             </main>
 
