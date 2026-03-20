@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { resume as resumeEn } from "./data/resume";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { Section } from "./components/Section";
@@ -12,29 +13,33 @@ import { ContactForm } from "./components/ContactForm.tsx";
 
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const navLinks = [
+        { label: currentResume.labels?.experience ?? "Experience", href: "#experience" },
+        { label: currentResume.labels?.skills     ?? "Skills",     href: "#skills"     },
+        { label: currentResume.labels?.projects   ?? "Projects",   href: "#projects"   },
+        { label: currentResume.labels?.contact    ?? "Contact",    href: "#contact"    },
+    ];
 
     return (
         <div className="min-h-dvh bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
             {/* Header */}
-            <header className="sticky top-0 z-10 backdrop-blur bg-white/90 dark:bg-zinc-900/90 border-b border-[#e5e5e5] dark:border-zinc-800">
-                <div className="mx-auto max-w-5xl px-6 flex items-center justify-between gap-8" style={{ height: "72px" }}>
+            <header className="sticky top-0 z-20 backdrop-blur bg-white/90 dark:bg-zinc-900/90 border-b border-[#e5e5e5] dark:border-zinc-800">
+                {/* Main bar */}
+                <div className="mx-auto max-w-5xl px-4 sm:px-6 flex items-center justify-between gap-4" style={{ height: "72px" }}>
 
                     {/* Brand — left */}
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 min-w-0">
                         <h1 className="text-[18px] font-bold leading-tight whitespace-nowrap">{currentResume.name}</h1>
                         <p className="text-[13px] leading-tight mt-0.5 whitespace-nowrap" style={{ color: "#6b7280" }}>
                             {currentResume.title} · {currentResume.location}
                         </p>
                     </div>
 
-                    {/* Nav — centre/right */}
+                    {/* Nav — desktop only (≥ 768px) */}
                     <nav className="hidden md:flex items-center" style={{ gap: "32px" }}>
-                        {[
-                            { label: currentResume.labels?.experience ?? "Experience", href: "#experience" },
-                            { label: currentResume.labels?.skills ?? "Skills",          href: "#skills"      },
-                            { label: currentResume.labels?.projects ?? "Projects",      href: "#projects"    },
-                            { label: currentResume.labels?.contact  ?? "Contact",       href: "#contact"     },
-                        ].map(({ label, href }) => (
+                        {navLinks.map(({ label, href }) => (
                             <a
                                 key={href}
                                 href={href}
@@ -46,12 +51,37 @@ export default function App() {
                     </nav>
 
                     {/* Controls — far right */}
-                    <div className="flex-shrink-0 flex items-center gap-3 border-l border-[#e5e5e5] dark:border-zinc-700 pl-6">
+                    <div className="flex-shrink-0 flex items-center gap-2 sm:gap-3 sm:border-l border-[#e5e5e5] dark:border-zinc-700 sm:pl-6">
                         <TranslationToggle onSwitch={setCurrentResume} />
                         <ThemeToggle />
+                        {/* Hamburger — mobile only */}
+                        <button
+                            className="md:hidden p-1.5 -mr-1 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                            aria-label={menuOpen ? "Close menu" : "Open menu"}
+                            onClick={() => setMenuOpen(o => !o)}
+                        >
+                            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+                        </button>
                     </div>
 
                 </div>
+
+                {/* Mobile dropdown */}
+                {menuOpen && (
+                    <div className="md:hidden border-t border-[#e5e5e5] dark:border-zinc-800 bg-white dark:bg-zinc-900">
+                        {navLinks.map(({ label, href }) => (
+                            <a
+                                key={href}
+                                href={href}
+                                onClick={() => setMenuOpen(false)}
+                                className="flex items-center px-6 text-[15px] text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors border-b border-[#f0f0f0] dark:border-zinc-800 last:border-b-0"
+                                style={{ height: "48px" }}
+                            >
+                                {label}
+                            </a>
+                        ))}
+                    </div>
+                )}
             </header>
 
             <div className="bg-white dark:bg-zinc-900 border-b border-[#e5e5e5] dark:border-zinc-700">
