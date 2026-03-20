@@ -29,10 +29,10 @@ export default function App() {
                 {/* Main bar */}
                 <div className="mx-auto max-w-5xl px-4 sm:px-6 flex items-center justify-between gap-4" style={{ height: "72px" }}>
 
-                    {/* Brand — left */}
-                    <div className="flex-shrink-0 min-w-0">
-                        <h1 className="text-[18px] font-bold leading-tight whitespace-nowrap">{currentResume.name}</h1>
-                        <p className="text-[13px] leading-tight mt-0.5 whitespace-nowrap" style={{ color: "#6b7280" }}>
+                    {/* Brand — left: shrinks on mobile, subtitle hidden below sm */}
+                    <div className="min-w-0 overflow-hidden">
+                        <h1 className="text-[16px] sm:text-[18px] font-bold leading-tight truncate">{currentResume.name}</h1>
+                        <p className="hidden sm:block text-[13px] leading-tight mt-0.5 truncate" style={{ color: "#6b7280" }}>
                             {currentResume.title} · {currentResume.location}
                         </p>
                     </div>
@@ -56,7 +56,7 @@ export default function App() {
                         <ThemeToggle />
                         {/* Hamburger — mobile only */}
                         <button
-                            className="md:hidden p-1.5 -mr-1 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                            className="md:hidden flex-shrink-0 p-1.5 text-zinc-700 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                             aria-label={menuOpen ? "Close menu" : "Open menu"}
                             onClick={() => setMenuOpen(o => !o)}
                         >
