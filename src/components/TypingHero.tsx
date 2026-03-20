@@ -6,56 +6,35 @@ const TITLES = [
     "Senior PHP & JavaScript Developer",
 ];
 
-const TYPE_SPEED_MS = 60;
-const DELETE_SPEED_MS = 35;
-const PAUSE_AFTER_TYPE_MS = 1800;
-const PAUSE_AFTER_DELETE_MS = 400;
+const DISPLAY_MS  = 2800; // how long each title is fully visible
+const FADE_OUT_MS =  500; // fade-out duration (matches CSS transition)
 
 export function TypingHero() {
-    const [displayed, setDisplayed] = useState("");
-    const [titleIndex, setTitleIndex] = useState(0);
-    const [isDeleting, setIsDeleting] = useState(false);
-    const [cursorVisible, setCursorVisible] = useState(true);
+    const [index, setIndex]     = useState(0);
+    const [visible, setVisible] = useState(true);
 
-    // Blinking cursor
     useEffect(() => {
-        const id = setInterval(() => setCursorVisible((v) => !v), 530);
-        return () => clearInterval(id);
-    }, []);
-
-    // Typewriter logic
-    useEffect(() => {
-        const target = TITLES[titleIndex];
-
-        if (!isDeleting && displayed === target) {
-            const id = setTimeout(() => setIsDeleting(true), PAUSE_AFTER_TYPE_MS);
-            return () => clearTimeout(id);
-        }
-
-        if (isDeleting && displayed === "") {
-            const id = setTimeout(() => {
-                setIsDeleting(false);
-                setTitleIndex((i) => (i + 1) % TITLES.length);
-            }, PAUSE_AFTER_DELETE_MS);
-            return () => clearTimeout(id);
-        }
-
-        const delay = isDeleting ? DELETE_SPEED_MS : TYPE_SPEED_MS;
         const id = setTimeout(() => {
-            setDisplayed(isDeleting ? target.slice(0, displayed.length - 1) : target.slice(0, displayed.length + 1));
-        }, delay);
+            // Fade out, then swap title and fade back in
+            setVisible(false);
+            setTimeout(() => {
+                setIndex(i => (i + 1) % TITLES.length);
+                setVisible(true);
+            }, FADE_OUT_MS);
+        }, DISPLAY_MS);
         return () => clearTimeout(id);
-    }, [displayed, isDeleting, titleIndex]);
+    }, [index]);
 
     return (
-        <h2 className="text-2xl font-bold" aria-label={TITLES[titleIndex]}>
-            {displayed}
-            <span
-                aria-hidden="true"
-                className={`inline-block w-0.5 h-6 ml-0.5 align-middle bg-indigo-500 rounded-sm transition-opacity duration-100 ${
-                    cursorVisible ? "opacity-100" : "opacity-0"
-                }`}
-            />
+        <h2
+            className="text-xl sm:text-2xl font-bold"
+            aria-label={TITLES[index]}
+            style={{
+                opacity:    visible ? 1 : 0,
+                transition: `opacity ${FADE_OUT_MS}ms ease`,
+            }}
+        >
+            {TITLES[index]}
         </h2>
     );
 }
