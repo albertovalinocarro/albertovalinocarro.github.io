@@ -8,6 +8,7 @@ import {TranslationToggle} from "./components/TranslationToggle.tsx";
 import Footer from "./components/Footer.tsx";
 import { TypingHero } from "./components/TypingHero.tsx";
 import { Terminal } from "./components/Terminal.tsx";
+import { ContactForm } from "./components/ContactForm.tsx";
 
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
@@ -123,6 +124,10 @@ export default function App() {
                             <li key={x}>{x}</li>
                         ))}
                     </ul>
+                </Section>
+
+                <Section id="contact" title={currentResume.labels?.contact ?? "Get In Touch"}>
+                    <ContactForm labels={currentResume.labels} />
                 </Section>
 
                 <Section id="terminal" title="Interactive Terminal">
