@@ -25,7 +25,10 @@ export function Section({ id, title, children, index = 0 }: SectionProps) {
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="mx-auto max-w-3xl px-4 py-[90px]">
-        <h2 className="text-xl font-semibold tracking-tight mt-2 mb-6">{title}</h2>
+        <p className="font-mono text-[13px] text-indigo-500 dark:text-indigo-400 mb-2 select-none" aria-hidden="true">
+          {`// ${String(index + 1).padStart(2, "0")}`}
+        </p>
+        <h2 className="text-xl font-semibold tracking-tight mt-0 mb-6">{title}</h2>
         <div className="space-y-3">{children}</div>
       </div>
     </motion.section>
