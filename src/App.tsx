@@ -76,28 +76,23 @@ export default function App() {
                 </Section>
 
                 <Section index={2} id="experience" title={currentResume.labels?.experience ?? "Experiencia Profesional"}>
-                    <div className="space-y-6">
-                        {currentResume.experience.map((job) => (
-                            <article
-                                key={job.role + job.company}
-                                className="
-                                    relative rounded-xl border border-zinc-200 dark:border-zinc-700
-                                    bg-white dark:bg-zinc-900 p-5 shadow-sm
-                                "
-                            >
-                            {/* Accent bar */}
-                            <div className="absolute left-0 top-0 bottom-0 w-1 rounded-l-xl bg-indigo-500" />
+                    <div>
+                        {currentResume.experience.map((job, i, arr) => (
+                            <article key={job.role + job.company} className="mb-12 last:mb-0">
+                                <header className="flex items-baseline justify-between gap-2">
+                                    <h3 className="font-semibold">{job.role} — {job.company}</h3>
+                                    <span className="shrink-0 text-sm text-zinc-500 dark:text-zinc-400">{job.period}</span>
+                                </header>
 
-                            <header className="flex items-baseline justify-between gap-2 pl-3">
-                                <h3 className="font-semibold">{job.role} — {job.company}</h3>
-                                <span className="text-sm text-zinc-500 dark:text-zinc-400">{job.period}</span>
-                            </header>
+                                <ul className="mt-3 list-disc pl-5 space-y-1">
+                                    {job.points.map((pt, j) => (
+                                        <li key={j}>{pt}</li>
+                                    ))}
+                                </ul>
 
-                            <ul className="mt-3 list-disc pl-8 space-y-1">
-                                {job.points.map((pt, i) => (
-                                <li key={i}>{pt}</li>
-                                ))}
-                            </ul>
+                                {i < arr.length - 1 && (
+                                    <div className="mt-12 border-t border-[#e5e5e5] dark:border-zinc-700" />
+                                )}
                             </article>
                         ))}
                     </div>
