@@ -140,7 +140,9 @@ export default function App() {
                         <code className="font-mono">contact</code>,{" "}
                         <code className="font-mono">help</code>
                     </p>
-                    <Terminal />
+                    <div className="mt-6">
+                        <Terminal />
+                    </div>
                 </Section>
             </main>
 

@@ -207,7 +207,8 @@ export function Terminal() {
             </div>
 
             {/* Scrollback area */}
-            <div ref={scrollRef} className="bg-zinc-950 p-4 h-72 overflow-y-auto" role="log" aria-live="polite" aria-label="Terminal output">
+            <div className="relative">
+              <div ref={scrollRef} className="bg-zinc-950 p-4 min-h-[300px] h-80 overflow-y-auto" role="log" aria-live="polite" aria-label="Terminal output">
                 {lines.map((line, i) => (
                     <div
                         key={i}
@@ -220,6 +221,17 @@ export function Terminal() {
                         {line.type === "blank" ? "\u00A0" : line.text}
                     </div>
                 ))}
+              </div>
+
+              {/* Scanline overlay — purely decorative, pointer-events disabled */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px)",
+                }}
+              />
             </div>
 
             {/* Input row */}
@@ -234,13 +246,18 @@ export function Terminal() {
                     // maxLength is the primary guard against oversized inputs hitting
                     // the state + render pipeline.
                     maxLength={MAX_INPUT_LENGTH}
-                    className="flex-1 bg-transparent text-green-300 outline-none caret-green-400 placeholder-zinc-600"
+                    className="flex-1 bg-transparent text-green-300 outline-none caret-transparent placeholder-zinc-600"
                     placeholder="type a command and press Enter…"
                     autoComplete="off"
                     autoCorrect="off"
                     autoCapitalize="off"
                     spellCheck={false}
                     aria-label="Terminal command input"
+                />
+                {/* Blinking block cursor — replaces the native caret */}
+                <span
+                    aria-hidden="true"
+                    className="terminal-cursor inline-block w-[0.5em] h-[1em] bg-green-400 align-text-bottom"
                 />
             </div>
         </div>
