@@ -26,19 +26,19 @@ export function ThemeToggle() {
     return (
         <button
             onClick={toggle}
-            className="relative flex items-center w-14 h-8 rounded-full bg-zinc-300 dark:bg-zinc-700 p-1 transition-colors hover:opacity-90 active:scale-95"
+            className="relative flex items-center w-10 h-6 rounded-full bg-zinc-300 dark:bg-zinc-700 p-0.5 transition-colors hover:opacity-90 active:scale-95"
             aria-label="Toggle theme"
         >
             {/* Sun on left */}
-            <Sun size={14} className="absolute left-1 text-yellow-500" />
+            <Sun size={11} className="absolute left-0.5 text-yellow-500" />
             {/* Moon on right */}
-            <Moon size={14} className="absolute right-1 text-indigo-500" />
+            <Moon size={11} className="absolute right-0.5 text-indigo-500" />
             {/* Knob */}
             <span
                 title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-                className={`h-6 w-6 rounded-full shadow-md transform transition-transform duration-300 ring-2 ring-white/50 ${
+                className={`h-5 w-5 rounded-full shadow-sm transform transition-transform duration-300 ring-1 ring-white/50 ${
                     isDark
-                        ? "translate-x-6 bg-indigo-500"
+                        ? "translate-x-4 bg-indigo-500"
                         : "translate-x-0 bg-yellow-500"
                 }`}
             />

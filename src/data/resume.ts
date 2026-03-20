@@ -3,6 +3,7 @@ export const CV_VERSION = "2026-03-09-v1-ic-focus";
 export const resume = {
     name: "Alberto Valiño Carro",
     title: "Senior Full-Stack Developer",
+    location: "Dublin, Ireland",
     email: "albertovcarro@gmail.com",
 
     labels: {
