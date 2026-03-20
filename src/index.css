@@ -18,6 +18,12 @@
   --breakpoint-3xl: 1920px;
 }
 
+/* Prevent horizontal overflow on mobile */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 /* Optional: smooth transitions */
 * {
   transition: background-color .2s ease, color .2s ease, border-color .2s ease;
