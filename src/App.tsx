@@ -16,14 +16,38 @@ export default function App() {
     return (
         <div className="min-h-dvh bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
             {/* Header */}
-            <header className="sticky top-0 z-10 backdrop-blur bg-white/80 dark:bg-zinc-900/80 border-b border-zinc-200 dark:border-zinc-800">
-                <div className="mx-auto max-w-3xl px-4 py-4 flex items-center justify-between">
-                    <div>
-                        <h1 className="text-xl font-bold">{currentResume.name}</h1>
+            <header className="sticky top-0 z-10 backdrop-blur bg-white/90 dark:bg-zinc-900/90 border-b border-[#e5e5e5] dark:border-zinc-800">
+                <div className="mx-auto max-w-3xl px-4 py-5 flex items-center justify-between gap-6">
+                    {/* Brand */}
+                    <div className="min-w-0">
+                        <h1 className="text-xl font-bold leading-tight">{currentResume.name}</h1>
+                        <p className="text-[13px] text-[#6b7280] dark:text-zinc-400 leading-tight mt-0.5">
+                            {currentResume.title} · {currentResume.location}
+                        </p>
                     </div>
-                    <div className="flex items-center gap-3">
-                        <TranslationToggle onSwitch={setCurrentResume} />
-                        <ThemeToggle />
+
+                    {/* Right side: nav + controls */}
+                    <div className="flex items-center gap-5 shrink-0">
+                        <nav className="hidden sm:flex items-center gap-5">
+                            {[
+                                { label: currentResume.labels?.experience ?? "Experience", href: "#experience" },
+                                { label: currentResume.labels?.skills ?? "Skills", href: "#skills" },
+                                { label: currentResume.labels?.projects ?? "Projects", href: "#projects" },
+                                { label: currentResume.labels?.contact ?? "Contact", href: "#contact" },
+                            ].map(({ label, href }) => (
+                                <a
+                                    key={href}
+                                    href={href}
+                                    className="text-[13px] text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                                >
+                                    {label}
+                                </a>
+                            ))}
+                        </nav>
+                        <div className="flex items-center gap-2.5 border-l border-[#e5e5e5] dark:border-zinc-700 pl-4">
+                            <TranslationToggle onSwitch={setCurrentResume} />
+                            <ThemeToggle />
+                        </div>
                     </div>
                 </div>
             </header>
