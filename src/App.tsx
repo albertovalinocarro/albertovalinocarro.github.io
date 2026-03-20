@@ -17,38 +17,40 @@ export default function App() {
         <div className="min-h-dvh bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
             {/* Header */}
             <header className="sticky top-0 z-10 backdrop-blur bg-white/90 dark:bg-zinc-900/90 border-b border-[#e5e5e5] dark:border-zinc-800">
-                <div className="mx-auto max-w-3xl px-4 py-5 flex items-center justify-between gap-6">
-                    {/* Brand */}
-                    <div className="min-w-0">
-                        <h1 className="text-xl font-bold leading-tight">{currentResume.name}</h1>
-                        <p className="text-[13px] text-[#6b7280] dark:text-zinc-400 leading-tight mt-0.5">
+                <div className="mx-auto max-w-5xl px-6 flex items-center justify-between gap-8" style={{ height: "72px" }}>
+
+                    {/* Brand — left */}
+                    <div className="flex-shrink-0">
+                        <h1 className="text-[18px] font-bold leading-tight whitespace-nowrap">{currentResume.name}</h1>
+                        <p className="text-[13px] leading-tight mt-0.5 whitespace-nowrap" style={{ color: "#6b7280" }}>
                             {currentResume.title} · {currentResume.location}
                         </p>
                     </div>
 
-                    {/* Right side: nav + controls */}
-                    <div className="flex items-center gap-5 shrink-0">
-                        <nav className="hidden sm:flex items-center gap-5">
-                            {[
-                                { label: currentResume.labels?.experience ?? "Experience", href: "#experience" },
-                                { label: currentResume.labels?.skills ?? "Skills", href: "#skills" },
-                                { label: currentResume.labels?.projects ?? "Projects", href: "#projects" },
-                                { label: currentResume.labels?.contact ?? "Contact", href: "#contact" },
-                            ].map(({ label, href }) => (
-                                <a
-                                    key={href}
-                                    href={href}
-                                    className="text-[13px] text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
-                                >
-                                    {label}
-                                </a>
-                            ))}
-                        </nav>
-                        <div className="flex items-center gap-2.5 border-l border-[#e5e5e5] dark:border-zinc-700 pl-4">
-                            <TranslationToggle onSwitch={setCurrentResume} />
-                            <ThemeToggle />
-                        </div>
+                    {/* Nav — centre/right */}
+                    <nav className="hidden md:flex items-center" style={{ gap: "32px" }}>
+                        {[
+                            { label: currentResume.labels?.experience ?? "Experience", href: "#experience" },
+                            { label: currentResume.labels?.skills ?? "Skills",          href: "#skills"      },
+                            { label: currentResume.labels?.projects ?? "Projects",      href: "#projects"    },
+                            { label: currentResume.labels?.contact  ?? "Contact",       href: "#contact"     },
+                        ].map(({ label, href }) => (
+                            <a
+                                key={href}
+                                href={href}
+                                className="text-[14px] whitespace-nowrap text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                            >
+                                {label}
+                            </a>
+                        ))}
+                    </nav>
+
+                    {/* Controls — far right */}
+                    <div className="flex-shrink-0 flex items-center gap-3 border-l border-[#e5e5e5] dark:border-zinc-700 pl-6">
+                        <TranslationToggle onSwitch={setCurrentResume} />
+                        <ThemeToggle />
                     </div>
+
                 </div>
             </header>
 
