@@ -29,7 +29,7 @@ export default function App() {
             </header>
 
             <div className="bg-white dark:bg-zinc-900 border-b border-[#e5e5e5] dark:border-zinc-700">
-                <div className="mx-auto max-w-3xl px-4 pt-4 pb-10">
+                <div className="mx-auto max-w-3xl px-4 py-16">
                     <TypingHero />
                     <ContactBar />
                 </div>
@@ -60,10 +60,12 @@ export default function App() {
                                     visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
                                 }}
                                 className="
-                                    rounded-full px-3 py-1 text-sm
-                                    bg-zinc-100 dark:bg-zinc-800
+                                    rounded-[6px] px-3 py-1 text-sm
+                                    border border-[#d1d5db] dark:border-zinc-600
+                                    bg-zinc-50 dark:bg-zinc-800
                                     text-zinc-800 dark:text-zinc-200
-                                    hover:bg-indigo-100 hover:dark:bg-indigo-800
+                                    hover:bg-indigo-50 dark:hover:bg-indigo-950
+                                    hover:border-indigo-400 dark:hover:border-indigo-500
                                     transition-colors duration-200
                                 "
                             >
