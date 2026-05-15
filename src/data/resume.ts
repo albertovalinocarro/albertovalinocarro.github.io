@@ -108,7 +108,7 @@ export const resume = {
         },
         {
             name: "SyncBridge",
-            url: "https://github.com/albertovalinocarro",
+            url: "https://github.com/albertovalinocarro/sync_bridge",
             period: "2025 – Present",
             stack: ["Symfony 7.4", "PHP 8.4", "Messenger", "REST API"],
             summary: "Middleware system handling webhook ingestion, async message processing via Messenger + workers, and a REST API layer.",
@@ -121,7 +121,7 @@ export const resume = {
     extras: [
         "Fluent in English & Spanish",
         "Mentor & team collaborator",
-        "Building with MCP (Model Context Protocol) server integrations — connecting LLM tooling to real data sources (Google Drive, Gmail, Calendar) for agentic workflows",
+        "Building with MCP (Model Context Protocol) server sintegrations — connecting LLM tooling to real data sources (Google Drive, Gmail, Calendar) for agentic workflows",
         "Portfolio site built with React 19, TypeScript, Tailwind v4, Framer Motion, and LangChain/OpenAI",
     ],
 
