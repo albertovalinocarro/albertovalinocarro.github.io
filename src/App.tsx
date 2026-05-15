@@ -16,10 +16,10 @@ export default function App() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const navLinks = [
-        { label: currentResume.labels?.experience ?? "Experience", href: "#experience" },
-        { label: currentResume.labels?.skills     ?? "Skills",     href: "#skills"     },
-        { label: currentResume.labels?.projects   ?? "Projects",   href: "#projects"   },
-        { label: currentResume.labels?.contact    ?? "Contact",    href: "#contact"    },
+        { label: currentResume.labels?.experience      ?? "Experience",        href: "#experience"       },
+        { label: currentResume.labels?.skills          ?? "Skills",            href: "#skills"           },
+        { label: currentResume.labels?.personalProjects ?? "Personal Projects", href: "#personal-projects"},
+        { label: currentResume.labels?.contact         ?? "Contact",           href: "#contact"          },
     ];
 
     return (
@@ -29,7 +29,7 @@ export default function App() {
                 {/* Main bar */}
                 <div className="mx-auto max-w-5xl px-4 sm:px-6 flex items-center justify-between gap-4" style={{ height: "72px" }}>
 
-                    {/* Brand — left: shrinks on mobile, subtitle hidden below sm */}
+                    {/* Brand */}
                     <div className="min-w-0 overflow-hidden">
                         <h1 className="text-[16px] sm:text-[18px] font-bold leading-tight truncate">{currentResume.name}</h1>
                         <p className="hidden sm:block text-[13px] leading-tight mt-0.5 truncate" style={{ color: "#6b7280" }}>
@@ -37,7 +37,7 @@ export default function App() {
                         </p>
                     </div>
 
-                    {/* Nav — desktop only (≥ 768px) */}
+                    {/* Nav — desktop only */}
                     <nav className="hidden md:flex items-center" style={{ gap: "32px" }}>
                         {navLinks.map(({ label, href }) => (
                             <a
@@ -54,7 +54,6 @@ export default function App() {
                     <div className="flex-shrink-0 flex items-center gap-2 sm:gap-3 sm:border-l border-[#e5e5e5] dark:border-zinc-700 sm:pl-6">
                         <TranslationToggle onSwitch={setCurrentResume} />
                         <ThemeToggle />
-                        {/* Hamburger — mobile only */}
                         <button
                             className="md:hidden flex-shrink-0 p-1.5 text-zinc-700 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -84,6 +83,7 @@ export default function App() {
                 )}
             </header>
 
+            {/* Hero */}
             <div className="bg-white dark:bg-zinc-900 border-b border-[#e5e5e5] dark:border-zinc-700">
                 <div className="mx-auto max-w-3xl px-4 py-16">
                     <TypingHero />
@@ -93,11 +93,13 @@ export default function App() {
 
             {/* Main */}
             <main>
-                <Section index={0} id="summary" title={currentResume.labels?.summary ?? "Resumen Profesional"}>
+                {/* 01 — Summary */}
+                <Section index={0} id="summary" title={currentResume.labels?.summary ?? "Professional Summary"}>
                     <p className="leading-relaxed text-zinc-700 dark:text-zinc-300">{currentResume.summary}</p>
                 </Section>
 
-                <Section index={1} id="skills" title={currentResume.labels?.skills ?? "Habilidades Clave"}>
+                {/* 02 — Skills */}
+                <Section index={1} id="skills" title={currentResume.labels?.skills ?? "Core Skills"}>
                     <motion.div
                         className="flex flex-wrap gap-2"
                         initial="hidden"
@@ -131,7 +133,8 @@ export default function App() {
                     </motion.div>
                 </Section>
 
-                <Section index={2} id="experience" title={currentResume.labels?.experience ?? "Experiencia Profesional"}>
+                {/* 03 — Experience */}
+                <Section index={2} id="experience" title={currentResume.labels?.experience ?? "Professional Experience"}>
                     <div>
                         {currentResume.experience.map((job, i, arr) => (
                             <article key={job.role + job.company} className="mb-12 last:mb-0">
@@ -139,13 +142,11 @@ export default function App() {
                                     <h3 className="font-semibold">{job.role} — {job.company}</h3>
                                     <span className="shrink-0 text-sm text-zinc-500 dark:text-zinc-400">{job.period}</span>
                                 </header>
-
                                 <ul className="mt-3 list-disc pl-5 space-y-1">
                                     {job.points.map((pt, j) => (
                                         <li key={j}>{pt}</li>
                                     ))}
                                 </ul>
-
                                 {i < arr.length - 1 && (
                                     <div className="mt-12 border-t border-[#e5e5e5] dark:border-zinc-700" />
                                 )}
@@ -154,7 +155,8 @@ export default function App() {
                     </div>
                 </Section>
 
-                <Section index={3} id="education" title={currentResume.labels?.education ?? "Educación"}>
+                {/* 04 — Education */}
+                <Section index={3} id="education" title={currentResume.labels?.education ?? "Academic Experience"}>
                     <ul className="space-y-3">
                         {currentResume.education.map((e) => (
                             <li key={e.title} className="flex items-baseline justify-between">
@@ -165,7 +167,57 @@ export default function App() {
                     </ul>
                 </Section>
 
-                <Section index={4} id="projects" title={currentResume.labels?.projects ?? "Proyectos"}>
+                {/* 05 — Personal Projects ← NEW */}
+                <Section index={4} id="personal-projects" title={currentResume.labels?.personalProjects ?? "Personal Projects"}>
+                    <div className="space-y-10">
+                        {currentResume.personalProjects?.map((project) => (
+                            <article key={project.name}>
+                                {/* Project header */}
+                                <header className="flex items-baseline justify-between gap-2 mb-3">
+                                    <div className="flex items-center gap-3 flex-wrap">
+                                        <h3 className="font-semibold text-base">
+                                            <a
+                                                href={project.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-indigo-600 dark:text-indigo-400 hover:underline"
+                                            >
+                                                {project.name}
+                                            </a>
+                                        </h3>
+                                        {/* Stack tags */}
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {project.stack.map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-[#d1d5db] dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <span className="shrink-0 text-sm text-zinc-500 dark:text-zinc-400">{project.period}</span>
+                                </header>
+
+                                {/* Summary */}
+                                <p className="text-zinc-700 dark:text-zinc-300 text-sm mb-3 leading-relaxed">
+                                    {project.summary}
+                                </p>
+
+                                {/* Bullet points */}
+                                <ul className="list-disc pl-5 space-y-1.5">
+                                    {project.points.map((pt, i) => (
+                                        <li key={i} className="text-sm text-zinc-700 dark:text-zinc-300">{pt}</li>
+                                    ))}
+                                </ul>
+                            </article>
+                        ))}
+                    </div>
+                </Section>
+
+                {/* 06 — Key Accomplishments */}
+                <Section index={5} id="projects" title={currentResume.labels?.projects ?? "Key Accomplishments"}>
                     <ul className="list-disc pl-5 space-y-2">
                         {currentResume.projects.map((p) => (
                             <li key={p}>{p}</li>
@@ -173,7 +225,8 @@ export default function App() {
                     </ul>
                 </Section>
 
-                <Section index={5} id="extras" title={currentResume.labels?.extras ?? "Extras"}>
+                {/* 07 — Additional Information */}
+                <Section index={6} id="extras" title={currentResume.labels?.extras ?? "Additional Information"}>
                     <ul className="list-disc pl-5 space-y-2">
                         {currentResume.extras.map((x) => (
                             <li key={x}>{x}</li>
@@ -181,15 +234,18 @@ export default function App() {
                     </ul>
                 </Section>
 
-                <Section index={6} id="contact" title={currentResume.labels?.contact ?? "Get In Touch"}>
+                {/* 08 — Contact */}
+                <Section index={7} id="contact" title={currentResume.labels?.contact ?? "Get In Touch"}>
                     <ContactForm labels={currentResume.labels} />
                 </Section>
 
-                <Section index={7} id="terminal" title="Interactive Terminal">
+                {/* 09 — Terminal */}
+                <Section index={8} id="terminal" title="Interactive Terminal">
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 -mt-1">
                         Try: <code className="font-mono">whoami</code>,{" "}
                         <code className="font-mono">skills</code>,{" "}
                         <code className="font-mono">experience</code>,{" "}
+                        <code className="font-mono">projects</code>,{" "}
                         <code className="font-mono">contact</code>,{" "}
                         <code className="font-mono">help</code>
                     </p>

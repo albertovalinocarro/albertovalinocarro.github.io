@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 const TITLES = [
-    "Senior Full-Stack Developer",
+    "Senior Full-Stack PHP Developer",
     "Senior Laravel & React Developer",
     "Senior PHP & JavaScript Developer",
+    "Senior Full-Stack Developer",
 ];
 
 const DISPLAY_MS  = 2800; // how long each title is fully visible
