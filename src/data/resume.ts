@@ -15,6 +15,16 @@ export const resume = {
         personalProjects: "Personal Projects",
         extras: "Additional Information",
         contact: "Get In Touch",
+        contactNameLabel: "Name",
+        contactNamePlaceholder: "Your name",
+        contactEmailLabel: "Email",
+        contactEmailPlaceholder: "your@email.com",
+        contactMessageLabel: "Message",
+        contactMessagePlaceholder: "Your message...",
+        contactSend: "Send Message",
+        contactSending: "Sending...",
+        contactSuccess: "Message sent! I'll get back to you soon.",
+        contactError: "Something went wrong. Please try again or email me directly.",
     },
 
     summary:
