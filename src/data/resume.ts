@@ -1,4 +1,4 @@
-export const CV_VERSION = "2026-05-15-v4-projects";
+export const CV_VERSION = "2026-05-15-v5-vue3";
 
 export const resume = {
     name: "Alberto Valiño Carro",
@@ -107,6 +107,18 @@ export const resume = {
             ],
         },
         {
+            name: "Job Tracker",
+            url: "https://job-tracker-avc.vercel.app",
+            period: "May 2026 – Present",
+            stack: ["Vue 3", "TypeScript", "Pinia", "Vue Router", "Supabase", "Tailwind CSS v4", "Vercel"],
+            summary: "Full-stack job application tracking SaaS built to demonstrate Vue 3 Composition API, Pinia state management, and Supabase Auth with Row Level Security.",
+            points: [
+                "Composition API throughout — ref, reactive, computed, watch, onMounted used across stores and views.",
+                "Pinia stores for auth, applications, and companies with async Supabase actions and optimistic local state updates.",
+                "Vue Router with navigation guards, lazy-loaded routes, and dynamic params; Supabase Auth with per-user RLS policies.",
+            ],
+        },
+        {
             name: "SyncBridge",
             url: "https://github.com/albertovalinocarro/sync_bridge",
             period: "2025 – Present",
@@ -121,7 +133,7 @@ export const resume = {
     extras: [
         "Fluent in English & Spanish",
         "Mentor & team collaborator",
-        "Building with MCP (Model Context Protocol) server sintegrations — connecting LLM tooling to real data sources (Google Drive, Gmail, Calendar) for agentic workflows",
+        "Building with MCP (Model Context Protocol) server integrations — connecting LLM tooling to real data sources (Google Drive, Gmail, Calendar) for agentic workflows",
         "Portfolio site built with React 19, TypeScript, Tailwind v4, Framer Motion, and LangChain/OpenAI",
     ],
 
