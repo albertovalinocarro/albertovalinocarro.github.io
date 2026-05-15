@@ -20,12 +20,13 @@ interface OutputLine {
 const COMMAND_MAP: Record<string, () => OutputLine[]> = {
     help: () => [
         { text: "Available commands:", type: "output" },
-        { text: "  whoami - about Alberto", type: "output" },
-        { text: "  skills - tech stack by category", type: "output" },
+        { text: "  whoami     - about Alberto", type: "output" },
+        { text: "  skills     - tech stack by category", type: "output" },
         { text: "  experience - Three Ireland role summary", type: "output" },
-        { text: "  contact - email, LinkedIn, GitHub", type: "output" },
-        { text: "  clear - clear the terminal", type: "output" },
-        { text: "  help - show this message", type: "output" },
+        { text: "  projects   - personal projects", type: "output" },
+        { text: "  contact    - email, LinkedIn, GitHub", type: "output" },
+        { text: "  clear      - clear the terminal", type: "output" },
+        { text: "  help       - show this message", type: "output" },
     ],
 
     whoami: () => [
@@ -68,6 +69,23 @@ const COMMAND_MAP: Record<string, () => OutputLine[]> = {
         { text: "LinkedIn  https://www.linkedin.com/in/alberto-valino-carr0/", type: "output" },
         { text: "GitHub    https://github.com/albertovalinocarro", type: "output" },
         { text: "Location  Dublin, Ireland / A Coruña, Spain", type: "output" },
+    ],
+
+    projects: () => [
+        { text: "Trainer Tracker  →  trainer-tracker.com", type: "success" },
+        { text: "", type: "blank" },
+        { text: "  Full-stack SaaS training log, built solo from scratch.", type: "output" },
+        { text: "  SvelteKit 2 + Svelte 5 (SSR) · Laravel 12 REST API", type: "output" },
+        { text: "  PostgreSQL · Redis · Docker · Railway EU West · Cloudflare", type: "output" },
+        { text: "", type: "blank" },
+        { text: "  • Athlete/Coach dual-role system with pivot-table relationships", type: "output" },
+        { text: "  • GitHub-style annual heatmap, progress charts, streak tracking", type: "output" },
+        { text: "  • Sanctum token auth · rate limiting · Snyk · CI/CD auto-deploy", type: "output" },
+        { text: "", type: "blank" },
+        { text: "SyncBridge  →  github.com/albertovalinocarro", type: "success" },
+        { text: "", type: "blank" },
+        { text: "  Symfony 7.4 middleware: webhook ingestion, async Messenger", type: "output" },
+        { text: "  workers, and a REST API layer.", type: "output" },
     ],
 };
 

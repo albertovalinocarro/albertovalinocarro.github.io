@@ -1,10 +1,10 @@
-export const CV_VERSION = "2026-03-09-v1-ic-focus";
+export const CV_VERSION = "2026-05-15-v4-projects";
 
 export const resume = {
     name: "Alberto Valiño Carro",
-    title: "Senior Full-Stack Developer",
-    location: "Dublin, Ireland",
+    title: "Senior Full-Stack PHP Developer",
     email: "albertovcarro@gmail.com",
+    location: "Dublin, Ireland / A Coruña, Spain",
 
     labels: {
         summary: "Professional Summary",
@@ -12,18 +12,9 @@ export const resume = {
         experience: "Professional Experience",
         education: "Academic Experience",
         projects: "Key Accomplishments",
+        personalProjects: "Personal Projects",
         extras: "Additional Information",
         contact: "Get In Touch",
-        contactNameLabel: "Name",
-        contactEmailLabel: "Email",
-        contactMessageLabel: "Message",
-        contactNamePlaceholder: "Your name",
-        contactEmailPlaceholder: "your@email.com",
-        contactMessagePlaceholder: "Your message...",
-        contactSend: "Send Message",
-        contactSending: "Sending...",
-        contactSuccess: "Message sent! I'll get back to you soon.",
-        contactError: "Something went wrong. Please try again.",
     },
 
     summary:
@@ -33,7 +24,8 @@ export const resume = {
         "PHP & Laravel",
         "Python & LangChain",
         "JavaScript / TypeScript",
-        "React / Svelte / Next.js",
+        "React / Svelte 5 / SvelteKit 2",
+        "Vue 3",
         "API Design & REST",
         "MySQL / PostgreSQL",
         "AWS & Cloud Architecture",
@@ -91,10 +83,36 @@ export const resume = {
         "Delivered AWS-integrated SaaS tools and dashboards used by cross-functional teams, including executives.",
     ],
 
+    personalProjects: [
+        {
+            name: "Trainer Tracker",
+            url: "https://trainer-tracker.com",
+            period: "Sep 2025 – Present",
+            stack: ["SvelteKit 2", "Svelte 5", "Laravel 12", "PostgreSQL", "Redis", "Docker", "Railway"],
+            summary: "Full-stack SaaS training log built solo from scratch. SSR frontend, REST API backend, deployed live on Railway EU West with CI/CD auto-deploy on push to main.",
+            points: [
+                "Dual-role system (Athlete / Coach) with pivot-table relationships — athletes manage workouts, measurements, templates and exercises; coaches get a read-only view of their athletes' data.",
+                "Dashboard includes a GitHub-style annual training heatmap, weight/measurement progress charts, per-exercise strength progression tracking, and a live training streak calculator.",
+                "Production-grade security: Sanctum token auth in httpOnly cookies, rate limiting, CORS locked to production domain, 7-day token expiry with daily pruning, and Snyk dependency scanning.",
+            ],
+        },
+        {
+            name: "SyncBridge",
+            url: "https://github.com/albertovalinocarro",
+            period: "2025 – Present",
+            stack: ["Symfony 7.4", "PHP 8.4", "Messenger", "REST API"],
+            summary: "Middleware system handling webhook ingestion, async message processing via Messenger + workers, and a REST API layer.",
+            points: [
+                "Built to demonstrate architecture-level Symfony thinking beyond Laravel — covers async processing patterns, multi-client configuration, and clean API design.",
+            ],
+        },
+    ],
+
     extras: [
         "Fluent in English & Spanish",
         "Mentor & team collaborator",
-        "Interested in DevOps, AI, LLMs, Automation, Blockchain, and scalable architectures",
+        "Building with MCP (Model Context Protocol) server integrations — connecting LLM tooling to real data sources (Google Drive, Gmail, Calendar) for agentic workflows",
+        "Portfolio site built with React 19, TypeScript, Tailwind v4, Framer Motion, and LangChain/OpenAI",
     ],
 
     socials: {
