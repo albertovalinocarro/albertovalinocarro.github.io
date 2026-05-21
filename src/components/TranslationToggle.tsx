@@ -71,7 +71,7 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
 
         // Otherwise fetch fresh translation
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 30_000);
+        const timeoutId = setTimeout(() => controller.abort(), 65_000);
 
         const res = await fetch(API_URL, {
           method: "POST",
