@@ -15,7 +15,7 @@ Live site: 👉 https://albertovalinocarro.github.io/
 - 📊 Visitor analytics — total visits + unique visitors (Supabase)
 - 🚀 CI/CD badge (last commit via GitHub API)
 - 🎨 Polished UI — animated skill badges, timeline cards, typewriter hero, tooltips
-- 💻 Interactive terminal — type `help` to explore
+- 💻 Interactive terminal — type `help` to explore (easter egg - to be found)
 - 🔍 Observability with LangSmith (traced AI calls)
 - 🔒 Snyk integration for dependency and container security
 
