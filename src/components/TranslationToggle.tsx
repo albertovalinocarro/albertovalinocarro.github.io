@@ -85,7 +85,14 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
 
         clearTimeout(timeoutId);
 
-        if (!res.ok) throw new Error("Translation request failed");
+        if (!res.ok) {
+          let apiError = "Translation request failed";
+          try {
+            const body = await res.json();
+            if (body.error) apiError = body.error;
+          } catch { /* ignore */ }
+          throw new Error(apiError);
+        }
 
         const json = await res.json();
         const translated = json.translated;
