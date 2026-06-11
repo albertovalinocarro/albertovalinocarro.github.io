@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { resume, CV_VERSION } from "../data/resume";
+import { ENDPOINTS, TRANSLATE_API_KEY } from "../lib/api";
+import type { Resume } from "../data/types";
 import { Languages, Loader2 } from "lucide-react";
-
-type Resume = typeof resume;
 
 function isValidResume(data: unknown): data is Resume {
   if (!data || typeof data !== "object") return false;
@@ -19,8 +19,6 @@ function isValidResume(data: unknown): data is Resume {
   );
 }
 
-const API_URL = import.meta.env.VITE_API_URL;
-const FRONTEND_KEY = import.meta.env.VITE_TRANSLATE_API_KEY;
 const LIFETIME_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void }) {
@@ -73,11 +71,11 @@ export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 65_000);
 
-        const res = await fetch(API_URL, {
+        const res = await fetch(ENDPOINTS.translate, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": FRONTEND_KEY,
+            ...(TRANSLATE_API_KEY ? { "x-api-key": TRANSLATE_API_KEY } : {}),
           },
           body: JSON.stringify({ resume, targetLang: "Spanish" }),
           signal: controller.signal,

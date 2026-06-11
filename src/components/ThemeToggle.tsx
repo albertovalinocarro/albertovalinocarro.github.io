@@ -6,14 +6,13 @@ export function ThemeToggle() {
     const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {
+        // Saved preference wins; otherwise follow the OS setting
         const saved = localStorage.getItem("theme");
-        if (saved === "dark") {
-            document.documentElement.classList.add("dark");
-            setIsDark(true);
-        } else {
-            document.documentElement.classList.remove("dark");
-            setIsDark(false);
-        }
+        const dark = saved
+            ? saved === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
+        setIsDark(dark);
     }, []);
 
     const toggle = () => {
@@ -32,13 +31,13 @@ export function ThemeToggle() {
             {/* Sun on left */}
             <Sun size={11} className="absolute left-0.5 text-yellow-500" />
             {/* Moon on right */}
-            <Moon size={11} className="absolute right-0.5 text-indigo-500" />
+            <Moon size={11} className="absolute right-0.5 text-accent-500" />
             {/* Knob */}
             <span
                 title={isDark ? "Switch to light mode" : "Switch to dark mode"}
                 className={`h-5 w-5 rounded-full shadow-sm transform transition-transform duration-300 ring-1 ring-white/50 ${
                     isDark
-                        ? "translate-x-4 bg-indigo-500"
+                        ? "translate-x-4 bg-accent-500"
                         : "translate-x-0 bg-yellow-500"
                 }`}
             />

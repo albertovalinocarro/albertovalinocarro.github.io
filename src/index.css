@@ -5,14 +5,21 @@
 
 /* Configure theme directly here */
 @theme {
-  /* Fonts */
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Satoshi", sans-serif;
+  /* Fonts (Inter is self-hosted via the @fontsource-variable/inter import above) */
+  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
 
-  /* Custom colors */
-  --color-debug: hotpink;
-  --color-brand: oklch(0.65 0.2 280); /* example: purple */
-  --color-accent: oklch(0.75 0.2 120); /* example: green */
+  /* Brand accent — single source of truth. Swap the palette here to re-theme the site. */
+  --color-accent-50: var(--color-indigo-50);
+  --color-accent-100: var(--color-indigo-100);
+  --color-accent-200: var(--color-indigo-200);
+  --color-accent-300: var(--color-indigo-300);
+  --color-accent-400: var(--color-indigo-400);
+  --color-accent-500: var(--color-indigo-500);
+  --color-accent-600: var(--color-indigo-600);
+  --color-accent-700: var(--color-indigo-700);
+  --color-accent-800: var(--color-indigo-800);
+  --color-accent-900: var(--color-indigo-900);
+  --color-accent-950: var(--color-indigo-950);
 
   /* Breakpoints */
   --breakpoint-3xl: 1920px;
@@ -24,18 +31,44 @@ html, body {
   width: 100%;
 }
 
-/* Optional: smooth transitions */
-* {
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth theme switching — scoped to surfaces instead of `*` so it doesn't
+   fight Framer Motion or animate every node on the page. */
+body,
+header,
+section,
+article,
+footer {
   transition: background-color .2s ease, color .2s ease, border-color .2s ease;
 }
 
-/* Terminal blinking cursor */
+/* Dot-grid backdrop for the hero */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, rgb(0 0 0 / 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.dark .bg-dot-grid {
+  background-image: radial-gradient(circle, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+}
+
+/* Terminal & typewriter blinking cursor */
 @keyframes terminal-blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
 }
 .terminal-cursor {
   animation: terminal-blink 1s step-end infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .terminal-cursor {
+    animation: none;
+  }
 }
 
 /* Print styles */

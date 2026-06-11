@@ -1,28 +1,34 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useMemo, useState } from "react";
+import { MotionConfig, motion } from "framer-motion";
+import { Menu, X, Mail, FileDown, ExternalLink } from "lucide-react";
 import { resume as resumeEn } from "./data/resume";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { Section } from "./components/Section";
 import { ContactBar } from "./components/ContactBar";
-import {TranslationToggle} from "./components/TranslationToggle.tsx";
+import { TranslationToggle } from "./components/TranslationToggle.tsx";
 import Footer from "./components/Footer.tsx";
 import { TypingHero } from "./components/TypingHero.tsx";
 import { Terminal } from "./components/Terminal.tsx";
 import { ContactForm } from "./components/ContactForm.tsx";
+import { ScrollProgress } from "./components/ScrollProgress.tsx";
+import { useScrollSpy } from "./hooks/useScrollSpy";
+
+const NAV_SECTION_IDS = ["experience", "skills", "personal-projects", "contact"];
 
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
     const [menuOpen, setMenuOpen] = useState(false);
+    const activeSection = useScrollSpy(useMemo(() => NAV_SECTION_IDS, []));
 
     const navLinks = [
-        { label: currentResume.labels?.experience      ?? "Experience",        href: "#experience"       },
-        { label: currentResume.labels?.skills          ?? "Skills",            href: "#skills"           },
-        { label: currentResume.labels?.personalProjects ?? "Personal Projects", href: "#personal-projects"},
-        { label: currentResume.labels?.contact         ?? "Contact",           href: "#contact"          },
+        { label: currentResume.labels?.experience      ?? "Experience",        href: "#experience",        id: "experience"        },
+        { label: currentResume.labels?.skills          ?? "Skills",            href: "#skills",            id: "skills"            },
+        { label: currentResume.labels?.personalProjects ?? "Personal Projects", href: "#personal-projects", id: "personal-projects" },
+        { label: currentResume.labels?.contact         ?? "Contact",           href: "#contact",           id: "contact"           },
     ];
 
     return (
+        <MotionConfig reducedMotion="user">
         <div className="min-h-dvh bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
             {/* Header */}
             <header className="sticky top-0 z-20 backdrop-blur bg-white/90 dark:bg-zinc-900/90 border-b border-[#e5e5e5] dark:border-zinc-800">
@@ -30,20 +36,25 @@ export default function App() {
                 <div className="mx-auto max-w-5xl px-4 sm:px-6 flex items-center justify-between gap-4" style={{ height: "72px" }}>
 
                     {/* Brand */}
-                    <div className="min-w-0 overflow-hidden">
-                        <h1 className="text-[16px] sm:text-[18px] font-bold leading-tight truncate">{currentResume.name}</h1>
+                    <a href="#top" className="min-w-0 overflow-hidden">
+                        <p className="text-[16px] sm:text-[18px] font-bold leading-tight truncate">{currentResume.name}</p>
                         <p className="hidden sm:block text-[13px] leading-tight mt-0.5 truncate" style={{ color: "#6b7280" }}>
                             {currentResume.title} · {currentResume.location}
                         </p>
-                    </div>
+                    </a>
 
                     {/* Nav — desktop only */}
                     <nav className="hidden md:flex items-center" style={{ gap: "32px" }}>
-                        {navLinks.map(({ label, href }) => (
+                        {navLinks.map(({ label, href, id }) => (
                             <a
                                 key={href}
                                 href={href}
-                                className="text-[14px] whitespace-nowrap text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                                aria-current={activeSection === id ? "true" : undefined}
+                                className={`text-[14px] whitespace-nowrap transition-colors ${
+                                    activeSection === id
+                                        ? "text-accent-600 dark:text-accent-400 font-medium"
+                                        : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100"
+                                }`}
                             >
                                 {label}
                             </a>
@@ -51,7 +62,7 @@ export default function App() {
                     </nav>
 
                     {/* Controls — far right */}
-                    <div className="flex-shrink-0 flex items-center gap-2 sm:gap-3 sm:border-l border-[#e5e5e5] dark:border-zinc-700 sm:pl-6">
+                    <div className="no-print flex-shrink-0 flex items-center gap-2 sm:gap-3 sm:border-l border-[#e5e5e5] dark:border-zinc-700 sm:pl-6">
                         <TranslationToggle onSwitch={setCurrentResume} />
                         <ThemeToggle />
                         <button
@@ -81,13 +92,52 @@ export default function App() {
                         ))}
                     </div>
                 )}
+
+                {/* Reading progress */}
+                <ScrollProgress />
             </header>
 
             {/* Hero */}
-            <div className="bg-white dark:bg-zinc-900 border-b border-[#e5e5e5] dark:border-zinc-700">
-                <div className="mx-auto max-w-3xl px-4 py-16">
+            <div id="top" className="bg-dot-grid bg-white dark:bg-zinc-900 border-b border-[#e5e5e5] dark:border-zinc-700">
+                <div className="mx-auto max-w-3xl px-4 py-20 sm:py-24">
+                    <p className="font-mono text-sm text-accent-600 dark:text-accent-400 mb-3 select-none" aria-hidden="true">
+                        // hello, world
+                    </p>
+                    <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-3">
+                        {currentResume.name}
+                    </h1>
                     <TypingHero />
-                    <ContactBar />
+                    <p className="mt-5 max-w-xl text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                        8+ years building production systems with PHP, Laravel, React and AWS —
+                        owning features end-to-end, from schema design to the last pixel.
+                    </p>
+
+                    {/* CTAs */}
+                    <div className="no-print mt-8 flex flex-wrap items-center gap-3">
+                        <a
+                            href="#contact"
+                            className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium
+                                       bg-accent-600 hover:bg-accent-700 dark:bg-accent-500 dark:hover:bg-accent-600
+                                       text-white transition-colors"
+                        >
+                            <Mail size={16} />
+                            {currentResume.labels?.contact ?? "Get In Touch"}
+                        </a>
+                        <button
+                            onClick={() => window.print()}
+                            className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium
+                                       border border-zinc-300 dark:border-zinc-600
+                                       text-zinc-700 dark:text-zinc-200
+                                       hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                        >
+                            <FileDown size={16} />
+                            Download CV (PDF)
+                        </button>
+                    </div>
+
+                    <div className="mt-8">
+                        <ContactBar />
+                    </div>
                 </div>
             </div>
 
@@ -101,55 +151,69 @@ export default function App() {
                 {/* 02 — Skills */}
                 <Section index={1} id="skills" title={currentResume.labels?.skills ?? "Core Skills"}>
                     <motion.div
-                        className="flex flex-wrap gap-2"
+                        className="space-y-6"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-50px" }}
                         variants={{
                             hidden: {},
-                            visible: { transition: { staggerChildren: 0.06 } },
+                            visible: { transition: { staggerChildren: 0.05 } },
                         }}
                     >
-                        {currentResume.skills.map((s, i) => (
-                            <motion.span
-                                key={i}
+                        {(currentResume.skillGroups ?? resumeEn.skillGroups).map((group) => (
+                            <motion.div
+                                key={group.label}
                                 variants={{
                                     hidden: { opacity: 0, y: 10 },
                                     visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
                                 }}
-                                className="
-                                    rounded-[6px] px-3 py-1 text-sm
-                                    border border-[#d1d5db] dark:border-zinc-600
-                                    bg-zinc-50 dark:bg-zinc-800
-                                    text-zinc-800 dark:text-zinc-200
-                                    hover:bg-indigo-50 dark:hover:bg-indigo-950
-                                    hover:border-indigo-400 dark:hover:border-indigo-500
-                                    transition-colors duration-200
-                                "
                             >
-                                {s}
-                            </motion.span>
+                                <p className="font-mono text-[12px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2 select-none">
+                                    {group.label}
+                                </p>
+                                <div className="flex flex-wrap gap-2">
+                                    {group.items.map((s) => (
+                                        <span
+                                            key={s}
+                                            className="
+                                                rounded-[6px] px-3 py-1 text-sm
+                                                border border-[#d1d5db] dark:border-zinc-600
+                                                bg-zinc-50 dark:bg-zinc-800
+                                                text-zinc-800 dark:text-zinc-200
+                                                hover:bg-accent-50 dark:hover:bg-accent-950
+                                                hover:border-accent-400 dark:hover:border-accent-500
+                                                transition-colors duration-200
+                                            "
+                                        >
+                                            {s}
+                                        </span>
+                                    ))}
+                                </div>
+                            </motion.div>
                         ))}
                     </motion.div>
                 </Section>
 
-                {/* 03 — Experience */}
+                {/* 03 — Experience (timeline) */}
                 <Section index={2} id="experience" title={currentResume.labels?.experience ?? "Professional Experience"}>
-                    <div>
-                        {currentResume.experience.map((job, i, arr) => (
-                            <article key={job.role + job.company} className="mb-12 last:mb-0">
-                                <header className="flex items-baseline justify-between gap-2">
+                    <div className="relative border-l-2 border-zinc-200 dark:border-zinc-700 pl-6 sm:pl-8 space-y-12">
+                        {currentResume.experience.map((job) => (
+                            <article key={job.role + job.company} className="relative">
+                                {/* Timeline marker */}
+                                <span
+                                    aria-hidden="true"
+                                    className="absolute -left-[31px] sm:-left-[39px] top-1.5 h-3.5 w-3.5 rounded-full
+                                               bg-accent-500 dark:bg-accent-400 ring-4 ring-white dark:ring-zinc-900"
+                                />
+                                <header className="flex flex-wrap items-baseline justify-between gap-2">
                                     <h3 className="font-semibold">{job.role} — {job.company}</h3>
-                                    <span className="shrink-0 text-sm text-zinc-500 dark:text-zinc-400">{job.period}</span>
+                                    <span className="shrink-0 font-mono text-xs text-zinc-500 dark:text-zinc-400">{job.period}</span>
                                 </header>
-                                <ul className="mt-3 list-disc pl-5 space-y-1">
+                                <ul className="mt-3 list-disc pl-5 space-y-1 text-zinc-700 dark:text-zinc-300">
                                     {job.points.map((pt, j) => (
                                         <li key={j}>{pt}</li>
                                     ))}
                                 </ul>
-                                {i < arr.length - 1 && (
-                                    <div className="mt-12 border-t border-[#e5e5e5] dark:border-zinc-700" />
-                                )}
                             </article>
                         ))}
                     </div>
@@ -167,38 +231,46 @@ export default function App() {
                     </ul>
                 </Section>
 
-                {/* 05 — Personal Projects ← NEW */}
+                {/* 05 — Personal Projects */}
                 <Section index={4} id="personal-projects" title={currentResume.labels?.personalProjects ?? "Personal Projects"}>
-                    <div className="space-y-10">
+                    <div className="grid gap-6">
                         {currentResume.personalProjects?.map((project) => (
-                            <article key={project.name}>
+                            <motion.article
+                                key={project.name}
+                                whileHover={{ y: -3 }}
+                                transition={{ duration: 0.2 }}
+                                className="rounded-xl border border-zinc-200 dark:border-zinc-700
+                                           bg-white dark:bg-zinc-800/60 p-5 sm:p-6
+                                           shadow-sm hover:shadow-md hover:border-accent-400 dark:hover:border-accent-500
+                                           transition-[box-shadow,border-color] duration-200"
+                            >
                                 {/* Project header */}
                                 <header className="flex items-baseline justify-between gap-2 mb-3">
-                                    <div className="flex items-center gap-3 flex-wrap">
-                                        <h3 className="font-semibold text-base">
-                                            <a
-                                                href={project.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="text-indigo-600 dark:text-indigo-400 hover:underline"
-                                            >
-                                                {project.name}
-                                            </a>
-                                        </h3>
-                                        {/* Stack tags */}
-                                        <div className="flex flex-wrap gap-1.5">
-                                            {project.stack.map((tag) => (
-                                                <span
-                                                    key={tag}
-                                                    className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-[#d1d5db] dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <span className="shrink-0 text-sm text-zinc-500 dark:text-zinc-400">{project.period}</span>
+                                    <h3 className="font-semibold text-base">
+                                        <a
+                                            href={project.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-1.5 text-accent-600 dark:text-accent-400 hover:underline"
+                                        >
+                                            {project.name}
+                                            <ExternalLink size={14} className="opacity-70" />
+                                        </a>
+                                    </h3>
+                                    <span className="shrink-0 font-mono text-xs text-zinc-500 dark:text-zinc-400">{project.period}</span>
                                 </header>
+
+                                {/* Stack tags */}
+                                <div className="flex flex-wrap gap-1.5 mb-3">
+                                    {project.stack.map((tag) => (
+                                        <span
+                                            key={tag}
+                                            className="text-[11px] font-mono px-2 py-0.5 rounded-full border border-[#d1d5db] dark:border-zinc-600 bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
 
                                 {/* Summary */}
                                 <p className="text-zinc-700 dark:text-zinc-300 text-sm mb-3 leading-relaxed">
@@ -211,7 +283,7 @@ export default function App() {
                                         <li key={i} className="text-sm text-zinc-700 dark:text-zinc-300">{pt}</li>
                                     ))}
                                 </ul>
-                            </article>
+                            </motion.article>
                         ))}
                     </div>
                 </Section>
@@ -235,19 +307,19 @@ export default function App() {
                 </Section>
 
                 {/* 08 — Contact */}
-                <Section index={7} id="contact" title={currentResume.labels?.contact ?? "Get In Touch"}>
+                <Section index={7} id="contact" title={currentResume.labels?.contact ?? "Get In Touch"} noPrint>
                     <ContactForm labels={currentResume.labels} />
                 </Section>
 
                 {/* 09 — Terminal */}
-                <Section index={8} id="terminal" title="Interactive Terminal">
+                <Section index={8} id="terminal" title="Interactive Terminal" noPrint>
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 -mt-1">
                         Try: <code className="font-mono">whoami</code>,{" "}
                         <code className="font-mono">skills</code>,{" "}
                         <code className="font-mono">experience</code>,{" "}
                         <code className="font-mono">projects</code>,{" "}
                         <code className="font-mono">contact</code>,{" "}
-                        <code className="font-mono">help</code>
+                        <code className="font-mono">help</code> — Tab autocompletes
                     </p>
                     <div className="mt-6">
                         <Terminal />
@@ -258,5 +330,6 @@ export default function App() {
             {/* Footer */}
             <Footer currentResume={currentResume} />
         </div>
+        </MotionConfig>
     );
 }

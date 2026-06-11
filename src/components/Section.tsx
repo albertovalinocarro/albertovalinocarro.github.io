@@ -5,9 +5,10 @@ interface SectionProps {
   title: string;
   children: React.ReactNode;
   index?: number;
+  noPrint?: boolean;
 }
 
-export function Section({ id, title, children, index = 0 }: SectionProps) {
+export function Section({ id, title, children, index = 0, noPrint = false }: SectionProps) {
   const isEven = index % 2 === 0;
 
   return (
@@ -18,6 +19,7 @@ export function Section({ id, title, children, index = 0 }: SectionProps) {
         isEven
           ? "bg-white dark:bg-zinc-900"
           : "bg-[#f7f7f8] dark:bg-zinc-800/40",
+        noPrint ? "no-print" : "",
       ].join(" ")}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -25,7 +27,7 @@ export function Section({ id, title, children, index = 0 }: SectionProps) {
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="mx-auto max-w-3xl px-4 py-[90px]">
-        <p className="font-mono text-[13px] text-indigo-500 dark:text-indigo-400 mb-2 select-none" aria-hidden="true">
+        <p className="font-mono text-[13px] text-accent-500 dark:text-accent-400 mb-2 select-none" aria-hidden="true">
           {`// ${String(index + 1).padStart(2, "0")}`}
         </p>
         <h2 className="text-xl font-semibold tracking-tight mt-0 mb-6">{title}</h2>

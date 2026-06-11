@@ -1,129 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import type { KeyboardEvent } from "react";
+import { COMMAND_MAP, processCommand } from "../lib/terminalCommands";
+import type { LineType, OutputLine } from "../lib/terminalCommands";
 
 // ─── Security limits ──────────────────────────────────────────────────────────
 // These prevent memory/layout DoS from rapid input or long strings.
 const MAX_INPUT_LENGTH = 200;   // enforced on the <input> element
 const MAX_HISTORY_SIZE = 50;    // command history ring buffer
 const MAX_OUTPUT_LINES = 300;   // cap scrollback buffer
-
-// ─── Output line model ────────────────────────────────────────────────────────
-type LineType = "input" | "output" | "error" | "success" | "blank";
-interface OutputLine {
-    text: string;
-    type: LineType;
-}
-
-// ─── Command definitions ──────────────────────────────────────────────────────
-// All command output is defined as static string arrays.
-// Nothing here is ever eval'd or injected into the DOM as HTML.
-const COMMAND_MAP: Record<string, () => OutputLine[]> = {
-    help: () => [
-        { text: "Available commands:", type: "output" },
-        { text: "  whoami     - about Alberto", type: "output" },
-        { text: "  skills     - tech stack by category", type: "output" },
-        { text: "  experience - Three Ireland role summary", type: "output" },
-        { text: "  projects   - personal projects", type: "output" },
-        { text: "  contact    - email, LinkedIn, GitHub", type: "output" },
-        { text: "  clear      - clear the terminal", type: "output" },
-        { text: "  help       - show this message", type: "output" },
-    ],
-
-    whoami: () => [
-        { text: "Alberto Valiño Carro - Senior Full-Stack Developer", type: "success" },
-        { text: "", type: "blank" },
-        { text: "8+ years writing production PHP (Laravel) and JavaScript (React)", type: "output" },
-        { text: "at Three Ireland. Hands-on from schema design to React components -", type: "output" },
-        { text: "I own features end-to-end, debug deep in the stack, and leave code", type: "output" },
-        { text: "measurably better than I found it.", type: "output" },
-        { text: "", type: "blank" },
-        { text: "Based in Dublin, Ireland. Open to remote roles.", type: "output" },
-    ],
-
-    skills: () => [
-        { text: "Backend     PHP · Laravel · Python · REST APIs · OpenAPI", type: "output" },
-        { text: "Frontend    JavaScript · TypeScript · React · Svelte · Next.js", type: "output" },
-        { text: "Databases   MySQL · PostgreSQL · query optimisation · indexing", type: "output" },
-        { text: "Cloud       AWS (EC2, S3, SQS, RDS, CloudWatch, IAM)", type: "output" },
-        { text: "DevOps      Docker · GitHub Actions · CI/CD · blue-green deploys", type: "output" },
-        { text: "Testing     PHPUnit · TDD · PR review standards", type: "output" },
-        { text: "AI          LangChain · LLM integration · AI workflows", type: "output" },
-    ],
-
-    experience: () => [
-        { text: "Three Ireland - Senior Full-Stack Developer (2017 – Present)", type: "success" },
-        { text: "", type: "blank" },
-        { text: "• Full-stack ownership: migrations, Eloquent, service classes,", type: "output" },
-        { text: "  queued jobs, and React components from spec to production.", type: "output" },
-        { text: "• Refactored legacy PHP into testable Laravel; built PHPUnit", type: "output" },
-        { text: "  suites from near-zero coverage.", type: "output" },
-        { text: "• RESTful APIs with versioned endpoints, OpenAPI docs, Sanctum auth.", type: "output" },
-        { text: "• Laravel Queues + SQS pipelines for high-volume async reporting.", type: "output" },
-        { text: "• Resolved perf incidents via EXPLAIN, composite indexes.", type: "output" },
-        { text: "• GitHub Actions + blue-green AWS EC2 deployments.", type: "output" },
-        { text: "• Mentored juniors via code review, pairing, and onboarding docs.", type: "output" },
-    ],
-
-    contact: () => [
-        { text: "Email     albertovcarro@gmail.com", type: "output" },
-        { text: "LinkedIn  https://www.linkedin.com/in/alberto-valino-carr0/", type: "output" },
-        { text: "GitHub    https://github.com/albertovalinocarro", type: "output" },
-        { text: "Location  Dublin, Ireland / A Coruña, Spain", type: "output" },
-    ],
-
-    projects: () => [
-        { text: "Trainer Tracker  →  trainer-tracker.com", type: "success" },
-        { text: "", type: "blank" },
-        { text: "  Full-stack SaaS training log, built solo from scratch.", type: "output" },
-        { text: "  SvelteKit 2 + Svelte 5 (SSR) · Laravel 12 REST API", type: "output" },
-        { text: "  PostgreSQL · Redis · Docker · Railway EU West · Cloudflare", type: "output" },
-        { text: "", type: "blank" },
-        { text: "  • Athlete/Coach dual-role system with pivot-table relationships", type: "output" },
-        { text: "  • GitHub-style annual heatmap, progress charts, streak tracking", type: "output" },
-        { text: "  • Sanctum token auth · rate limiting · Snyk · CI/CD auto-deploy", type: "output" },
-        { text: "", type: "blank" },
-        { text: "SyncBridge  →  github.com/albertovalinocarro", type: "success" },
-        { text: "", type: "blank" },
-        { text: "  Symfony 7.4 middleware: webhook ingestion, async Messenger", type: "output" },
-        { text: "  workers, and a REST API layer.", type: "output" },
-    ],
-};
-
-// ─── Command processor ────────────────────────────────────────────────────────
-// Returns output lines for a given raw input string.
-// The return value is ALWAYS static string data — no user input is ever
-// interpolated into positions that could affect rendering behaviour.
-// React renders all text as plain text nodes, so there is no HTML injection risk.
-function processCommand(raw: string): OutputLine[] | "clear" {
-    const trimmed = raw.trim();
-
-    if (trimmed === "") return [];
-
-    // Easter egg — checked on the trimmed, lowercased string
-    if (trimmed.toLowerCase() === "sudo hire alberto") {
-        return [
-            { text: "[sudo] password for recruiter: ••••••••", type: "output" },
-            { text: "Authenticating...", type: "output" },
-            { text: "✓ Credentials accepted. Excellent taste confirmed.", type: "success" },
-            { text: "✓ Initiating hire sequence...", type: "success" },
-            { text: "→ Drop a line: albertovcarro@gmail.com", type: "success" },
-        ];
-    }
-
-    const cmd = trimmed.toLowerCase();
-
-    if (cmd === "clear") return "clear";
-
-    const handler = COMMAND_MAP[cmd];
-    if (handler) return handler();
-
-    // "not found" message: show the trimmed original input, not the lowercased
-    // version, so casing is preserved for the user — still rendered as text, safe.
-    return [
-        { text: `command not found: ${trimmed}`, type: "error" },
-        { text: "Type 'help' for available commands.", type: "error" },
-    ];
-}
 
 // ─── Component ────────────────────────────────────────────────────────────────
 const WELCOME: OutputLine[] = [
@@ -178,6 +62,30 @@ export function Terminal() {
     function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
         if (e.key === "Enter") {
             submit();
+            return;
+        }
+
+        if (e.key === "Tab") {
+            e.preventDefault();
+            const prefix = input.trimStart().toLowerCase();
+            if (prefix === "") return;
+
+            const candidates = [...Object.keys(COMMAND_MAP), "clear"]
+                .filter((c) => c.startsWith(prefix))
+                .sort();
+
+            if (candidates.length === 1) {
+                setInput(candidates[0]);
+            } else if (candidates.length > 1) {
+                // Show the options, like a real shell does
+                setLines((prev) =>
+                    [
+                        ...prev,
+                        { text: `$ ${input}`, type: "input" as LineType },
+                        { text: candidates.join("    "), type: "output" as LineType },
+                    ].slice(-MAX_OUTPUT_LINES)
+                );
+            }
             return;
         }
 
