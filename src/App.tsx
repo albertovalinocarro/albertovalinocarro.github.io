@@ -123,8 +123,9 @@ export default function App() {
                             <Mail size={16} />
                             {currentResume.labels?.contact ?? "Get In Touch"}
                         </a>
-                        <button
-                            onClick={() => window.print()}
+                        <a
+                            href="/cv-alberto-valino-carro.pdf"
+                            download="CV-Alberto-Valino-Carro.pdf"
                             className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium
                                        border border-zinc-300 dark:border-zinc-600
                                        text-zinc-700 dark:text-zinc-200
@@ -132,7 +133,7 @@ export default function App() {
                         >
                             <FileDown size={16} />
                             Download CV (PDF)
-                        </button>
+                        </a>
                     </div>
 
                     <div className="mt-8">
