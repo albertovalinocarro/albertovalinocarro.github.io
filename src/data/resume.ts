@@ -1,6 +1,6 @@
-export const CV_VERSION = "2026-05-15-v5-vue3";
+import type { Resume } from "./types";
 
-export const resume = {
+export const resume: Resume = {
     name: "Alberto Valiño Carro",
     title: "Senior Full-Stack PHP Developer",
     email: "albertovcarro@gmail.com",
@@ -45,6 +45,15 @@ export const resume = {
         "Performance & Optimisation",
         "LLM Integration & AI Workflows",
         "Clean Code & TDD",
+    ],
+
+    skillGroups: [
+        { label: "Backend", items: ["PHP", "Laravel", "Symfony", "Python", "REST APIs", "OpenAPI"] },
+        { label: "Frontend", items: ["JavaScript", "TypeScript", "React", "Next.js", "Svelte 5", "Vue 3"] },
+        { label: "Databases", items: ["MySQL", "PostgreSQL", "Redis", "Query optimisation", "Indexing"] },
+        { label: "Cloud & DevOps", items: ["AWS (EC2, S3, SQS, RDS)", "Docker", "GitHub Actions", "CI/CD", "Blue-green deploys"] },
+        { label: "Testing", items: ["PHPUnit", "TDD", "PR review standards"] },
+        { label: "AI", items: ["LangChain", "LLM integration", "MCP servers", "AI workflows"] },
     ],
 
     experience: [
@@ -147,3 +156,16 @@ export const resume = {
         linkedin: "https://www.linkedin.com/in/alberto-valino-carr0/",
     },
 };
+
+// Cache-busting version for the translated resume stored in localStorage.
+// Derived from the resume content itself (djb2 hash), so any edit to the data
+// above automatically invalidates stale cached translations — no manual bumps.
+export function hashContent(input: string): string {
+    let hash = 5381;
+    for (let i = 0; i < input.length; i++) {
+        hash = ((hash << 5) + hash + input.charCodeAt(i)) >>> 0;
+    }
+    return hash.toString(36);
+}
+
+export const CV_VERSION = hashContent(JSON.stringify(resume));

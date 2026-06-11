@@ -4,17 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" sizes="16x16" href="src/assets/favicon-16x16.png">
-  <title>Alberto Valiño Carro</title>
-  <!-- Prevent theme “flash” on reload -->
+  <title>Alberto Valiño Carro — Senior Full-Stack Developer</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Senior Full-Stack Developer with 8+ years of production PHP (Laravel) and JavaScript (React) experience. Based in Dublin, Ireland — open to remote roles." />
+  <meta name="author" content="Alberto Valiño Carro" />
+  <link rel="canonical" href="https://albertovalinocarro.github.io/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://albertovalinocarro.github.io/" />
+  <meta property="og:title" content="Alberto Valiño Carro — Senior Full-Stack Developer" />
+  <meta property="og:description" content="8+ years of production PHP (Laravel) and JavaScript (React). Dublin, Ireland — open to remote roles." />
+  <meta property="og:image" content="https://albertovalinocarro.github.io/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Alberto Valiño Carro — Senior Full-Stack Developer" />
+  <meta name="twitter:description" content="8+ years of production PHP (Laravel) and JavaScript (React). Dublin, Ireland — open to remote roles." />
+  <meta name="twitter:image" content="https://albertovalinocarro.github.io/og-image.png" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Alberto Valiño Carro",
+      "jobTitle": "Senior Full-Stack Developer",
+      "url": "https://albertovalinocarro.github.io/",
+      "email": "mailto:albertovcarro@gmail.com",
+      "address": { "@type": "PostalAddress", "addressLocality": "Dublin", "addressCountry": "IE" },
+      "sameAs": [
+        "https://github.com/albertovalinocarro",
+        "https://www.linkedin.com/in/alberto-valino-carr0/"
+      ],
+      "knowsAbout": ["PHP", "Laravel", "JavaScript", "TypeScript", "React", "AWS", "MySQL", "PostgreSQL"]
+    }
+  </script>
+
+  <!-- Prevent theme “flash” on reload — falls back to the OS preference -->
   <script>
     (() => {
       try {
         const saved = localStorage.getItem("theme");
-        if (saved === "dark") {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
+        const dark = saved
+          ? saved === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
       } catch {}
     })();
   </script>

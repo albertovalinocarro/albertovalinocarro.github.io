@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
-import type { resume } from "../data/resume";
-
-type Labels = typeof resume.labels;
+import { ENDPOINTS } from "../lib/api";
+import type { Labels } from "../data/types";
 
 interface ContactFormProps {
     labels: Labels;
@@ -10,20 +9,26 @@ interface ContactFormProps {
 
 type Status = "idle" | "sending" | "success" | "error";
 
-const CONTACT_API = "https://cv-translation-api.vercel.app/api/contact";
-
 export function ContactForm({ labels }: ContactFormProps) {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
+    // Honeypot — hidden from humans; bots that fill it get a silent fake success.
+    const [website, setWebsite] = useState("");
     const [status, setStatus] = useState<Status>("idle");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (website.trim() !== "") {
+            setStatus("success");
+            return;
+        }
+
         setStatus("sending");
 
         try {
-            const res = await fetch(CONTACT_API, {
+            const res = await fetch(ENDPOINTS.contact, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim() }),
@@ -54,7 +59,7 @@ export function ContactForm({ labels }: ContactFormProps) {
         bg-white dark:bg-zinc-800
         px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100
         placeholder:text-zinc-400 dark:placeholder:text-zinc-500
-        focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400
+        focus:outline-none focus:ring-2 focus:ring-accent-500 dark:focus:ring-accent-400
         transition-colors
     `;
 
@@ -62,10 +67,11 @@ export function ContactForm({ labels }: ContactFormProps) {
         <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                    <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                    <label htmlFor="contact-name" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                         {labels.contactNameLabel}
                     </label>
                     <input
+                        id="contact-name"
                         type="text"
                         required
                         maxLength={100}
@@ -76,10 +82,11 @@ export function ContactForm({ labels }: ContactFormProps) {
                     />
                 </div>
                 <div className="space-y-1">
-                    <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                    <label htmlFor="contact-email" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                         {labels.contactEmailLabel}
                     </label>
                     <input
+                        id="contact-email"
                         type="email"
                         required
                         maxLength={200}
@@ -92,10 +99,11 @@ export function ContactForm({ labels }: ContactFormProps) {
             </div>
 
             <div className="space-y-1">
-                <label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                <label htmlFor="contact-message" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                     {labels.contactMessageLabel}
                 </label>
                 <textarea
+                    id="contact-message"
                     required
                     maxLength={2000}
                     rows={5}
@@ -103,6 +111,19 @@ export function ContactForm({ labels }: ContactFormProps) {
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder={labels.contactMessagePlaceholder}
                     className={`${inputClass} resize-none`}
+                />
+            </div>
+
+            {/* Honeypot field — visually hidden and skipped by screen readers/tab order */}
+            <div aria-hidden="true" className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden">
+                <label htmlFor="contact-website">Website</label>
+                <input
+                    id="contact-website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
                 />
             </div>
 
@@ -119,11 +140,11 @@ export function ContactForm({ labels }: ContactFormProps) {
                 className="
                     inline-flex items-center gap-2
                     rounded-lg px-5 py-2.5 text-sm font-medium
-                    bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400
-                    dark:bg-indigo-500 dark:hover:bg-indigo-600 dark:disabled:bg-indigo-800
+                    bg-accent-600 hover:bg-accent-700 disabled:bg-accent-400
+                    dark:bg-accent-500 dark:hover:bg-accent-600 dark:disabled:bg-accent-800
                     text-white
                     transition-colors duration-200
-                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
+                    focus:outline-none focus:ring-2 focus:ring-accent-500 focus:ring-offset-2
                     dark:focus:ring-offset-zinc-900
                 "
             >
