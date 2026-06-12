@@ -106,10 +106,9 @@ export default function App() {
                     <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-3">
                         {currentResume.name}
                     </h1>
-                    <TypingHero />
+                    <TypingHero titles={currentResume.typingTitles ?? resumeEn.typingTitles} />
                     <p className="mt-5 max-w-xl text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                        8+ years building production systems with PHP, Laravel, React and AWS —
-                        owning features end-to-end, from schema design to the last pixel.
+                        {currentResume.labels?.heroTagline ?? resumeEn.labels.heroTagline}
                     </p>
 
                     {/* CTAs */}
@@ -132,7 +131,7 @@ export default function App() {
                                        hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
                         >
                             <FileDown size={16} />
-                            Download CV (PDF)
+                            {currentResume.labels?.downloadCv ?? resumeEn.labels.downloadCv}
                         </a>
                     </div>
 
@@ -151,6 +150,9 @@ export default function App() {
 
                 {/* 02 — Skills */}
                 <Section index={1} id="skills" title={currentResume.labels?.skills ?? "Core Skills"}>
+                    {/* Translations from the deployed API may not include skillGroups
+                        yet — in that case render the (translated) flat skills list
+                        rather than silently showing the English groups. */}
                     <motion.div
                         className="space-y-6"
                         initial="hidden"
@@ -161,7 +163,7 @@ export default function App() {
                             visible: { transition: { staggerChildren: 0.05 } },
                         }}
                     >
-                        {(currentResume.skillGroups ?? resumeEn.skillGroups).map((group) => (
+                        {(currentResume.skillGroups ?? [{ label: "", items: currentResume.skills }]).map((group) => (
                             <motion.div
                                 key={group.label}
                                 variants={{
@@ -169,9 +171,11 @@ export default function App() {
                                     visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
                                 }}
                             >
-                                <p className="font-mono text-[12px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2 select-none">
-                                    {group.label}
-                                </p>
+                                {group.label && (
+                                    <p className="font-mono text-[12px] uppercase tracking-wider text-zinc-500 dark:text-zinc-400 mb-2 select-none">
+                                        {group.label}
+                                    </p>
+                                )}
                                 <div className="flex flex-wrap gap-2">
                                     {group.items.map((s) => (
                                         <span
@@ -313,14 +317,20 @@ export default function App() {
                 </Section>
 
                 {/* 09 — Terminal */}
-                <Section index={8} id="terminal" title="Interactive Terminal" noPrint>
+                <Section
+                    index={8}
+                    id="terminal"
+                    title={currentResume.labels?.terminalTitle ?? resumeEn.labels.terminalTitle ?? "Interactive Terminal"}
+                    noPrint
+                >
                     <p className="text-sm text-zinc-500 dark:text-zinc-400 -mt-1">
                         Try: <code className="font-mono">whoami</code>,{" "}
                         <code className="font-mono">skills</code>,{" "}
                         <code className="font-mono">experience</code>,{" "}
                         <code className="font-mono">projects</code>,{" "}
                         <code className="font-mono">contact</code>,{" "}
-                        <code className="font-mono">help</code> — Tab autocompletes
+                        <code className="font-mono">help</code> —{" "}
+                        {currentResume.labels?.terminalHint ?? resumeEn.labels.terminalHint}
                     </p>
                     <div className="mt-6">
                         <Terminal />

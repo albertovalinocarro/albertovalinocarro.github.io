@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 
-const TITLES = [
+const DEFAULT_TITLES = [
     "Senior Full-Stack PHP Developer",
     "Senior Laravel & React Developer",
     "Senior PHP & JavaScript Developer",
@@ -13,16 +13,25 @@ const DELETE_MS = 30;     // per character while deleting
 const HOLD_MS = 2200;     // pause once a title is fully typed
 const HOLD_EMPTY_MS = 350; // pause before typing the next title
 
-export function TypingHero() {
+export function TypingHero({ titles }: { titles?: string[] }) {
     const reducedMotion = useReducedMotion();
+    const activeTitles = titles && titles.length > 0 ? titles : DEFAULT_TITLES;
     const [index, setIndex] = useState(0);
     const [text, setText] = useState("");
     const [deleting, setDeleting] = useState(false);
 
+    // Restart cleanly when the titles change (e.g. language switch)
+    const titlesKey = activeTitles.join("|");
+    useEffect(() => {
+        setIndex(0);
+        setText("");
+        setDeleting(false);
+    }, [titlesKey]);
+
     useEffect(() => {
         if (reducedMotion) return;
 
-        const title = TITLES[index];
+        const title = activeTitles[index % activeTitles.length];
         let delay: number;
 
         if (!deleting && text === title) {
@@ -38,20 +47,20 @@ export function TypingHero() {
                 setDeleting(true);
             } else if (deleting && text === "") {
                 setDeleting(false);
-                setIndex(i => (i + 1) % TITLES.length);
+                setIndex(i => (i + 1) % activeTitles.length);
             } else {
                 setText(deleting ? title.slice(0, text.length - 1) : title.slice(0, text.length + 1));
             }
         }, delay);
 
         return () => clearTimeout(id);
-    }, [text, deleting, index, reducedMotion]);
+    }, [text, deleting, index, reducedMotion, activeTitles]);
 
     // Static title for users who prefer reduced motion
     if (reducedMotion) {
         return (
             <p className="text-xl sm:text-2xl font-semibold text-zinc-700 dark:text-zinc-300">
-                {TITLES[TITLES.length - 1]}
+                {activeTitles[activeTitles.length - 1]}
             </p>
         );
     }
@@ -60,7 +69,7 @@ export function TypingHero() {
         // Fixed height so the layout never shifts while typing/deleting
         <p
             className="text-xl sm:text-2xl font-semibold text-zinc-700 dark:text-zinc-300 h-[1.5em]"
-            aria-label={TITLES[index]}
+            aria-label={activeTitles[index % activeTitles.length]}
         >
             <span aria-hidden="true" className="font-mono text-accent-500 dark:text-accent-400">$ </span>
             <span aria-hidden="true">{text}</span>

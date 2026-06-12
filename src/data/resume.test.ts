@@ -31,8 +31,9 @@ describe("resume data", () => {
     });
 
     it("has non-empty skill groups", () => {
-        expect(resume.skillGroups.length).toBeGreaterThan(0);
-        for (const group of resume.skillGroups) {
+        expect(resume.skillGroups).toBeDefined();
+        expect(resume.skillGroups!.length).toBeGreaterThan(0);
+        for (const group of resume.skillGroups!) {
             expect(group.label.length).toBeGreaterThan(0);
             expect(group.items.length).toBeGreaterThan(0);
         }
