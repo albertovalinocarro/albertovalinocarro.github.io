@@ -25,7 +25,19 @@ export const resume: Resume = {
         contactSending: "Sending...",
         contactSuccess: "Message sent! I'll get back to you soon.",
         contactError: "Something went wrong. Please try again or email me directly.",
+        heroTagline:
+            "8+ years building production systems with PHP, Laravel, React and AWS — owning features end-to-end, from schema design to the last pixel.",
+        downloadCv: "Download CV (PDF)",
+        terminalTitle: "Interactive Terminal",
+        terminalHint: "Tab autocompletes",
     },
+
+    typingTitles: [
+        "Senior Full-Stack PHP Developer",
+        "Senior Laravel & React Developer",
+        "Senior PHP & JavaScript Developer",
+        "Senior Full-Stack Developer",
+    ],
 
     summary:
         "Senior Full-Stack Developer with 8+ years writing production PHP (Laravel) and JavaScript (React). Hands-on throughout the full stack; schema design, query optimisation, REST API contracts, async job queues, and React component architecture. I own features end-to-end, debug deep in the stack, and leave code measurably better than I found it. Seeking a technically challenging full-stack remote role where I can contribute to long-term product success.",

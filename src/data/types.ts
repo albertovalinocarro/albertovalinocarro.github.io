@@ -17,6 +17,12 @@ export interface Labels {
     contactSending: string;
     contactSuccess: string;
     contactError: string;
+    // Optional: older cached translations and the currently deployed API
+    // may not include these — consumers must fall back to the English copy.
+    heroTagline?: string;
+    downloadCv?: string;
+    terminalTitle?: string;
+    terminalHint?: string;
 }
 
 export interface Experience {
@@ -59,8 +65,12 @@ export interface Resume {
     location: string;
     labels: Labels;
     summary: string;
+    // Rotating titles for the hero typewriter
+    typingTitles?: string[];
     skills: string[];
-    skillGroups: SkillGroup[];
+    // Optional: translations produced by the deployed API may lack this —
+    // the UI falls back to rendering the flat translated `skills` list.
+    skillGroups?: SkillGroup[];
     experience: Experience[];
     education: EducationEntry[];
     projects: string[];

@@ -9,11 +9,13 @@ function isValidResume(data: unknown): data is Resume {
   const r = data as Record<string, unknown>;
   return (
     typeof r.name === "string" &&
+    typeof r.title === "string" &&
     typeof r.summary === "string" &&
-    Array.isArray(r.skills) &&
-    Array.isArray(r.experience) &&
+    Array.isArray(r.skills) && r.skills.length > 0 &&
+    Array.isArray(r.experience) && r.experience.length > 0 &&
     Array.isArray(r.education) &&
     Array.isArray(r.projects) &&
+    Array.isArray(r.personalProjects) && r.personalProjects.length > 0 &&
     Array.isArray(r.extras) &&
     typeof r.labels === "object" && r.labels !== null
   );
