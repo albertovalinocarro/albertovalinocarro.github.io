@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { MotionConfig, motion } from "framer-motion";
 import { Menu, X, Mail, FileDown, ExternalLink } from "lucide-react";
 import { resume as resumeEn } from "./data/resume";
@@ -18,7 +18,9 @@ const NAV_SECTION_IDS = ["experience", "skills", "personal-projects", "contact"]
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
     const [menuOpen, setMenuOpen] = useState(false);
-    const activeSection = useScrollSpy(useMemo(() => NAV_SECTION_IDS, []));
+    // NAV_SECTION_IDS is a module-level constant, so its identity is already
+    // stable across renders — no memoization needed.
+    const activeSection = useScrollSpy(NAV_SECTION_IDS);
 
     const navLinks = [
         { label: currentResume.labels?.experience      ?? "Experience",        href: "#experience",        id: "experience"        },
@@ -68,6 +70,8 @@ export default function App() {
                         <button
                             className="md:hidden flex-shrink-0 p-1.5 text-zinc-700 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                             aria-label={menuOpen ? "Close menu" : "Open menu"}
+                            aria-expanded={menuOpen}
+                            aria-controls="mobile-menu"
                             onClick={() => setMenuOpen(o => !o)}
                         >
                             {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -78,7 +82,7 @@ export default function App() {
 
                 {/* Mobile dropdown */}
                 {menuOpen && (
-                    <div className="md:hidden border-t border-[#e5e5e5] dark:border-zinc-800 bg-white dark:bg-zinc-900">
+                    <div id="mobile-menu" className="md:hidden border-t border-[#e5e5e5] dark:border-zinc-800 bg-white dark:bg-zinc-900">
                         {navLinks.map(({ label, href }) => (
                             <a
                                 key={href}

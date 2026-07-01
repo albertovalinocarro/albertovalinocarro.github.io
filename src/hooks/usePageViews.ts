@@ -19,7 +19,16 @@ export function usePageViews() {
         const res = await fetch(ENDPOINTS.views, {
           method: counted ? "GET" : "POST",
         });
+        // A failed response (e.g. 429/500) carries an error body, not counts —
+        // don't mark the session as counted or render it.
+        if (!res.ok) throw new Error(`Views request failed: ${res.status}`);
         const data = await res.json();
+        if (
+          typeof data?.total !== "number" ||
+          typeof data?.unique !== "number"
+        ) {
+          throw new Error("Unexpected views response shape");
+        }
         if (!counted) sessionStorage.setItem("views_counted", "1");
         setViews(data);
       } catch (err) {
