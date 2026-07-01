@@ -5,9 +5,4 @@ export const ENDPOINTS = {
     contact: `${API_BASE}/api/contact`,
     views: `${API_BASE}/api/views`,
     deployInfo: `${API_BASE}/api/deploy-info`,
-    // The translate endpoint is configurable per environment because it is
-    // paired with VITE_TRANSLATE_API_KEY at build time.
-    translate: import.meta.env.VITE_API_URL ?? `${API_BASE}/api/translate`,
 } as const;
-
-export const TRANSLATE_API_KEY: string | undefined = import.meta.env.VITE_TRANSLATE_API_KEY;
