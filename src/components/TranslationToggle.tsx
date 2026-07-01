@@ -1,162 +1,40 @@
 import { useState, useEffect } from "react";
-import { resume, CV_VERSION } from "../data/resume";
-import { ENDPOINTS, TRANSLATE_API_KEY } from "../lib/api";
+import { resume } from "../data/resume";
+import { resumeEs } from "../data/resume.es";
 import type { Resume } from "../data/types";
-import { Languages, Loader2 } from "lucide-react";
+import { Languages } from "lucide-react";
 
-function isValidResume(data: unknown): data is Resume {
-  if (!data || typeof data !== "object") return false;
-  const r = data as Record<string, unknown>;
-  return (
-    typeof r.name === "string" &&
-    typeof r.title === "string" &&
-    typeof r.summary === "string" &&
-    Array.isArray(r.skills) && r.skills.length > 0 &&
-    Array.isArray(r.experience) && r.experience.length > 0 &&
-    Array.isArray(r.education) &&
-    Array.isArray(r.projects) &&
-    Array.isArray(r.personalProjects) && r.personalProjects.length > 0 &&
-    Array.isArray(r.extras) &&
-    typeof r.labels === "object" && r.labels !== null
-  );
-}
-
-const LIFETIME_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
-
+// Switches between the English resume and the static Spanish translation
+// (src/data/resume.es.ts). Both ship in the bundle, so the toggle is instant
+// and needs no network, API key, or cache.
 export function TranslationToggle({ onSwitch }: { onSwitch: (r: Resume) => void }) {
   const [lang, setLang] = useState<"en" | "es">("en");
-  const [loading, setLoading] = useState(false);
-  const [failed, setFailed] = useState(false);
 
-  // On mount -> check cached Spanish resume
+  // On mount: restore the last language choice.
   useEffect(() => {
-    const cached = localStorage.getItem("resume_es");
-    if (cached) {
-      try {
-        const { data, timestamp, version } = JSON.parse(cached);
-        const valid =
-          Date.now() - timestamp < LIFETIME_MS && version === CV_VERSION;
+    // Tidy up the cache left behind by the old API-based translation flow.
+    localStorage.removeItem("resume_es");
 
-        if (valid && isValidResume(data) && localStorage.getItem("lang") === "es") {
-          onSwitch(data);
-          setLang("es");
-        } else if (!valid || !isValidResume(data)) {
-          localStorage.removeItem("resume_es"); // expired or outdated
-        }
-      } catch {
-        console.warn("Invalid cached translation, clearing");
-        localStorage.removeItem("resume_es");
-      }
+    if (localStorage.getItem("lang") === "es") {
+      onSwitch(resumeEs);
+      setLang("es");
     }
   }, [onSwitch]);
 
-  // Handle translate button click
-  async function handleTranslate() {
-    if (lang === "en") {
-      setLoading(true);
-      setFailed(false);
-      try {
-        const cached = localStorage.getItem("resume_es");
-        if (cached) {
-          const { data, timestamp, version } = JSON.parse(cached);
-          const valid =
-            Date.now() - timestamp < LIFETIME_MS && version === CV_VERSION;
-
-          if (valid && isValidResume(data)) {
-            onSwitch(data);
-            setLang("es");
-            localStorage.setItem("lang", "es");
-            setLoading(false);
-            return;
-          }
-        }
-
-        // Otherwise fetch fresh translation
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 65_000);
-
-        const res = await fetch(ENDPOINTS.translate, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            ...(TRANSLATE_API_KEY ? { "x-api-key": TRANSLATE_API_KEY } : {}),
-          },
-          body: JSON.stringify({ resume, targetLang: "Spanish" }),
-          signal: controller.signal,
-        });
-
-        clearTimeout(timeoutId);
-
-        if (!res.ok) {
-          let apiError = "Translation request failed";
-          try {
-            const body = await res.json();
-            if (body.error) apiError = body.error;
-          } catch { /* ignore */ }
-          throw new Error(apiError);
-        }
-
-        const json = await res.json();
-        const translated = json.translated;
-
-        if (!isValidResume(translated)) throw new Error("Invalid translation response");
-
-        onSwitch(translated);
-
-        // Store with TTL + version
-        localStorage.setItem(
-          "resume_es",
-          JSON.stringify({
-            data: translated,
-            timestamp: Date.now(),
-            version: CV_VERSION,
-          })
-        );
-        localStorage.setItem("lang", "es");
-
-        setLang("es");
-      } catch (err) {
-        console.error("Translation error", err);
-        // Surface the failure on the button briefly instead of failing silently.
-        setFailed(true);
-        setTimeout(() => setFailed(false), 4000);
-      } finally {
-        setLoading(false);
-      }
-    } else {
-      onSwitch(resume);
-      setLang("en");
-      localStorage.setItem("lang", "en");
-    }
+  function handleToggle() {
+    const next = lang === "en" ? "es" : "en";
+    onSwitch(next === "es" ? resumeEs : resume);
+    setLang(next);
+    localStorage.setItem("lang", next);
   }
-  // Render button
+
   return (
     <button
-      onClick={handleTranslate}
-      disabled={loading}
-      aria-live="polite"
-      className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm shadow hover:opacity-90 transition ${
-        failed
-          ? "bg-red-100 dark:bg-red-950 text-red-700 dark:text-red-300"
-          : "bg-zinc-200 dark:bg-zinc-700"
-      }`}
+      onClick={handleToggle}
+      className="inline-flex items-center gap-2 rounded-full bg-zinc-200 dark:bg-zinc-700 px-4 py-1.5 text-sm shadow hover:opacity-90 transition"
     >
-      {loading ? (
-        <span className="flex items-center gap-2">
-          <Loader2 className="animate-spin" size={16} />
-          Translating...
-        </span>
-      ) : failed ? (
-        <>
-          <Languages size={16} className="opacity-80" />
-          Failed — retry?
-        </>
-      ) : (
-        <>
-          <Languages size={16} className="opacity-80" />
-          {lang === "en" ? "Español" : "English"}
-        </>
-      )}
+      <Languages size={16} className="opacity-80" />
+      {lang === "en" ? "Español" : "English"}
     </button>
   );
 }
