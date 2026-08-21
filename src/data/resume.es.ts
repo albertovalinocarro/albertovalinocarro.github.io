@@ -11,11 +11,11 @@ import type { Resume } from "./types";
 // (resume.es.test.ts) fails whenever resume.ts changes without this file
 // being retranslated — update the translation, then set SOURCE_CV_VERSION to
 // the new hash printed by the failing test.
-export const SOURCE_CV_VERSION = "qgmdj7";
+export const SOURCE_CV_VERSION = "1a6urob";
 
 export const resumeEs: Resume = {
     name: "Alberto Valiño Carro",
-    title: "Desarrollador Full-Stack PHP Sénior",
+    title: "Desarrollador Full-Stack Sénior",
     email: "albertovcarro@gmail.com",
     location: "Dublín, Irlanda / A Coruña, España",
 
@@ -39,21 +39,22 @@ export const resumeEs: Resume = {
         contactSuccess: "¡Mensaje enviado! Te responderé pronto.",
         contactError: "Algo ha ido mal. Inténtalo de nuevo o escríbeme directamente.",
         heroTagline:
-            "Más de 8 años construyendo sistemas en producción con PHP, Laravel, React y AWS — responsable de las funcionalidades de principio a fin, desde el diseño del esquema hasta el último píxel.",
+            "Más de 8 años construyendo sistemas en producción con PHP, Laravel y React — y ahora diseñando con Terraform las plataformas AWS sobre las que se ejecutan. Responsable de la entrega de principio a fin, desde el diseño del esquema hasta el último píxel.",
         downloadCv: "Descargar CV (PDF)",
         terminalTitle: "Terminal interactiva",
         terminalHint: "El tabulador autocompleta",
     },
 
     typingTitles: [
-        "Desarrollador Full-Stack PHP Sénior",
-        "Desarrollador Laravel y React Sénior",
-        "Desarrollador PHP y JavaScript Sénior",
         "Desarrollador Full-Stack Sénior",
+        "Desarrollador Laravel y React Sénior",
+        "AWS y Terraform · Infraestructura como código",
+        "Desarrollador Full-Stack Sénior y Cloud / Platform Engineer",
+        
     ],
 
     summary:
-        "Desarrollador Full-Stack Sénior con más de 8 años escribiendo PHP (Laravel) y JavaScript (React) en producción. Trabajo en todas las capas del stack: diseño de esquemas, optimización de consultas, contratos de API REST, colas de trabajos asíncronos y arquitectura de componentes React. Me responsabilizo de las funcionalidades de principio a fin, depuro a fondo en cualquier punto del stack y dejo el código mejor de lo que lo encontré, de forma medible. Busco un rol remoto full-stack técnicamente exigente donde contribuir al éxito del producto a largo plazo.",
+        "Desarrollador Full-Stack Sénior con más de 8 años escribiendo PHP (Laravel) y JavaScript (React) en producción — cada vez más en toda la cadena de entrega, desde el código de la aplicación hasta la infraestructura cloud sobre la que se ejecuta. Con experiencia práctica en diseño de esquemas, optimización de consultas, contratos de API REST, colas de trabajos asíncronos y arquitectura de componentes React. Actualmente lidero la reconstrucción de una plataforma greenfield en AWS: diseño una arquitectura aislada multicuenta y escribo toda la capa de infraestructura como código en Terraform (redes VPC, cómputo en ECS Fargate, bases de datos tras un proxy con autenticación IAM, y gestión de secretos y cifrado). Me responsabilizo de las funcionalidades de principio a fin, depuro a fondo en cualquier punto del stack y dejo el código mejor de lo que lo encontré, de forma medible. Busco un rol remoto full-stack o centrado en plataforma, técnicamente exigente, donde contribuir al éxito del producto a largo plazo.",
 
     skills: [
         "PHP y Laravel",
@@ -63,9 +64,11 @@ export const resumeEs: Resume = {
         "Svelte 5 / SvelteKit 2",
         "Vue 3",
         "Diseño de APIs y REST",
-        "MySQL / PostgreSQL",
+        "MySQL / PostgreSQL / MariaDB",
         "AWS y arquitectura cloud",
-        "Docker y CI/CD",
+        "Terraform e infraestructura como código",
+        "ECS Fargate y Docker",
+        "CI/CD y despliegues blue-green",
         "Diseño de sistemas",
         "Rendimiento y optimización",
         "Integración de LLMs y flujos de IA",
@@ -74,9 +77,10 @@ export const resumeEs: Resume = {
 
     skillGroups: [
         { label: "Backend", items: ["PHP", "Laravel", "Symfony", "Python", "APIs REST", "OpenAPI"] },
-        { label: "Frontend", items: ["JavaScript", "TypeScript", "React", "Next.js", "Svelte 5", "Vue 3"] },
-        { label: "Bases de datos", items: ["MySQL", "PostgreSQL", "Redis", "Optimización de consultas", "Indexación"] },
-        { label: "Cloud y DevOps", items: ["AWS (EC2, S3, SQS, RDS)", "Docker", "GitHub Actions", "CI/CD", "Despliegues blue-green"] },
+        { label: "Frontend", items: ["JavaScript", "TypeScript", "React", "Next.js", "Svelte 5", "Vue 3", "Inertia.js"] },
+        { label: "Bases de datos", items: ["MySQL / MariaDB", "PostgreSQL", "Redis", "Optimización de consultas", "Indexación"] },
+        { label: "Cloud e infraestructura", items: ["AWS", "Terraform (IaC)", "VPC y grupos de seguridad", "ECS Fargate", "RDS + RDS Proxy", "ElastiCache", "KMS", "Secrets Manager"] },
+        { label: "DevOps y CI/CD", items: ["Docker", "CodePipeline / CodeBuild / CodeDeploy", "GitHub Actions", "ECR", "Despliegues blue-green", "CloudWatch"] },
         { label: "Testing", items: ["PHPUnit", "TDD", "Estándares de revisión de PRs"] },
         { label: "IA", items: ["LangChain", "Integración de LLMs", "Servidores MCP", "Flujos de trabajo con IA"] },
     ],
@@ -87,6 +91,9 @@ export const resumeEs: Resume = {
             company: "Three.ie",
             period: "2017 – Actualidad | Dublín, Irlanda",
             points: [
+                "Lidero la modernización de la infraestructura y la plataforma de un sistema interno de telecomunicaciones crítico para el negocio — sustituyendo una aplicación legacy en PHP puro sobre una única EC2 por una aplicación Laravel contenedorizada sobre una base AWS multicuenta y segura.",
+                "Escribí toda la capa de infraestructura como código en Terraform — redes VPC, cadenas de confianza entre grupos de seguridad basadas en identidad, RDS con un RDS Proxy autenticado por IAM, ElastiCache Redis y cifrado con claves KMS gestionadas por el cliente — como módulos reutilizables en Dev, Staging y Production.",
+                "Diseñé un CI/CD nativo de AWS (CodePipeline / CodeBuild / CodeDeploy) con despliegues blue/green en ECS Fargate y rollback, validado en una revisión formal de arquitectura con responsables sénior.",
                 "Responsable del desarrollo de funcionalidades en todo el stack Laravel + React: migraciones, modelos Eloquent, clases de servicio, trabajos en cola y componentes React, desde la especificación hasta producción.",
                 "Refactoricé PHP legacy enmarañado hacia código Laravel testeable orientado a servicios; introduje suites de PHPUnit partiendo de una cobertura casi nula e implanté estándares de revisión de PRs.",
                 "Construí y mantuve APIs RESTful con endpoints versionados y documentación OpenAPI; autenticación con Laravel Sanctum.",
@@ -121,10 +128,12 @@ export const resumeEs: Resume = {
     ],
 
     projects: [
+        "Diseño una plataforma AWS greenfield y multicuenta para sustituir un único host EC2 configurado a mano — cuentas Dev/Staging/Production aisladas, redes VPC con cadenas de confianza entre grupos de seguridad basadas en identidad, cómputo en ECS Fargate, una base de datos RDS tras un proxy autenticado por IAM, ElastiCache y cifrado con claves KMS gestionadas por el cliente — definida por completo como código en Terraform.",
+        "Escribí una estructura de módulos reutilizables en Terraform (red, datos, cómputo, pipeline) de modo que los entornos son el mismo código con distintas variables: reproducibles, revisables como pull requests y libres de desviaciones de configuración.",
+        "Diseñé un pipeline de CI/CD nativo de AWS (CodePipeline / CodeBuild / CodeDeploy) con despliegues blue/green en ECS y rollback automático, sustituyendo los despliegues manuales por SSH.",
+        "Reduje el riesgo de una reconstrucción legacy con una auditoría completa — catalogando 33 bases de datos y ~21.000 archivos para mapear trabajos en segundo plano, integraciones de pago en vivo y exposiciones de seguridad — y elaboré la documentación de arquitectura y plan de construcción que superó la revisión de arquitectura sénior.",
         "Lideré el desarrollo de una plataforma de datos en la nube para la gestión de activos de telecomunicaciones, habilitando la operación remota y reduciendo un 30 % el tiempo de intervención en campo.",
-        "Construí aplicaciones web a medida para flujos de trabajo específicos del negocio, aumentando la adopción por parte de usuarios no técnicos.",
         "Modernicé sistemas legacy de PHP y JavaScript refactorizándolos hacia una arquitectura escalable con Laravel y React, mejorando notablemente la mantenibilidad y la cobertura de tests.",
-        "Encabecé la migración a AWS (S3, SQS, RDS, EC2, IAM, CloudWatch) y GitHub, agilizando el CI/CD y reforzando las prácticas de seguridad.",
         "Entregué herramientas SaaS y paneles integrados con AWS utilizados por equipos multidisciplinares, incluida la dirección.",
     ],
 
@@ -133,7 +142,7 @@ export const resumeEs: Resume = {
             name: "Trainer Tracker",
             url: "https://trainer-tracker.com",
             period: "Sep 2025 – Actualidad",
-            stack: ["SvelteKit 2", "Svelte 5", "Laravel 12", "PostgreSQL", "Redis", "Docker", "Railway"],
+            stack: ["SvelteKit 2", "Svelte 5", "Laravel 13", "PostgreSQL", "Redis", "Docker", "Railway"],
             summary: "SaaS full-stack de registro de entrenamientos, construido en solitario desde cero. Frontend con SSR, API REST de backend, desplegado en Railway EU West con auto-despliegue CI/CD en cada push a main.",
             points: [
                 "Sistema de doble rol (Atleta / Entrenador) con relaciones mediante tablas pivote: los atletas gestionan entrenamientos, mediciones, plantillas y ejercicios; los entrenadores tienen vista de solo lectura de los datos de sus atletas.",
@@ -170,6 +179,7 @@ export const resumeEs: Resume = {
     extras: [
         "Bilingüe en inglés y español",
         "Mentor y compañero de equipo colaborativo",
+        "Infraestructura como código con Terraform — flujo de planificar y revisar, IAM de mínimo privilegio y redes AWS seguras por defecto",
         "Construyendo integraciones con servidores MCP (Model Context Protocol): conectando herramientas LLM con fuentes de datos reales (Google Drive, Gmail, Calendar) para flujos de trabajo agénticos",
         "Web de portfolio construida con React 19, TypeScript, Tailwind v4, Framer Motion y LangChain/OpenAI",
     ],

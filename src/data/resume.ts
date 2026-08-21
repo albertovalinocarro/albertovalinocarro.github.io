@@ -2,7 +2,7 @@ import type { Resume } from "./types";
 
 export const resume: Resume = {
     name: "Alberto Valiño Carro",
-    title: "Senior Full-Stack PHP Developer",
+    title: "Senior Full-Stack Developer",
     email: "albertovcarro@gmail.com",
     location: "Dublin, Ireland / A Coruña, Spain",
 
@@ -26,21 +26,21 @@ export const resume: Resume = {
         contactSuccess: "Message sent! I'll get back to you soon.",
         contactError: "Something went wrong. Please try again or email me directly.",
         heroTagline:
-            "8+ years building production systems with PHP, Laravel, React and AWS — owning features end-to-end, from schema design to the last pixel.",
+            "8+ years shipping production systems with PHP, Laravel and React — now architecting the AWS platforms they run on with Terraform. Owning delivery end-to-end, from schema design to the last pixel.",
         downloadCv: "Download CV (PDF)",
         terminalTitle: "Interactive Terminal",
         terminalHint: "Tab autocompletes",
     },
 
     typingTitles: [
-        "Senior Full-Stack PHP Developer",
-        "Senior Laravel & React Developer",
-        "Senior PHP & JavaScript Developer",
         "Senior Full-Stack Developer",
+        "Senior Laravel & React Developer",
+        "AWS & Terraform · Infrastructure as Code",
+        "Senior Full-Stack Developer & Cloud / Platform Engineer",
     ],
 
     summary:
-        "Senior Full-Stack Developer with 8+ years writing production PHP (Laravel) and JavaScript (React). Hands-on throughout the full stack; schema design, query optimisation, REST API contracts, async job queues, and React component architecture. I own features end-to-end, debug deep in the stack, and leave code measurably better than I found it. Seeking a technically challenging full-stack remote role where I can contribute to long-term product success.",
+        "Senior Full-Stack Developer with 8+ years writing production PHP (Laravel) and JavaScript (React) — increasingly working the full delivery stack, from application code down to the cloud infrastructure it runs on. Hands-on with schema design, query optimisation, REST API contracts, async job queues, and React component architecture. Currently leading a greenfield AWS platform rebuild: designing an isolated multi-account architecture and authoring the whole infrastructure layer as code in Terraform (VPC networking, ECS Fargate compute, proxy-fronted IAM-authenticated databases, managed secrets and encryption). I own features end-to-end, debug deep in the stack, and leave code measurably better than I found it. Seeking a technically challenging full-stack or platform-focused remote role where I can contribute to long-term product success.",
 
     skills: [
         "PHP & Laravel",
@@ -50,9 +50,11 @@ export const resume: Resume = {
         "Svelte 5 / SvelteKit 2",
         "Vue 3",
         "API Design & REST",
-        "MySQL / PostgreSQL",
+        "MySQL / PostgreSQL / MariaDB",
         "AWS & Cloud Architecture",
-        "Docker & CI/CD",
+        "Terraform & Infrastructure as Code",
+        "ECS Fargate & Docker",
+        "CI/CD & Blue-Green Deploys",
         "System Design",
         "Performance & Optimisation",
         "LLM Integration & AI Workflows",
@@ -61,9 +63,10 @@ export const resume: Resume = {
 
     skillGroups: [
         { label: "Backend", items: ["PHP", "Laravel", "Symfony", "Python", "REST APIs", "OpenAPI"] },
-        { label: "Frontend", items: ["JavaScript", "TypeScript", "React", "Next.js", "Svelte 5", "Vue 3"] },
-        { label: "Databases", items: ["MySQL", "PostgreSQL", "Redis", "Query optimisation", "Indexing"] },
-        { label: "Cloud & DevOps", items: ["AWS (EC2, S3, SQS, RDS)", "Docker", "GitHub Actions", "CI/CD", "Blue-green deploys"] },
+        { label: "Frontend", items: ["JavaScript", "TypeScript", "React", "Next.js", "Svelte 5", "Vue 3", "Inertia.js"] },
+        { label: "Databases", items: ["MySQL / MariaDB", "PostgreSQL", "Redis", "Query optimisation", "Indexing"] },
+        { label: "Cloud & Infrastructure", items: ["AWS", "Terraform (IaC)", "VPC & security groups", "ECS Fargate", "RDS + RDS Proxy", "ElastiCache", "KMS", "Secrets Manager"] },
+        { label: "DevOps & CI/CD", items: ["Docker", "CodePipeline / CodeBuild / CodeDeploy", "GitHub Actions", "ECR", "Blue-green deploys", "CloudWatch"] },
         { label: "Testing", items: ["PHPUnit", "TDD", "PR review standards"] },
         { label: "AI", items: ["LangChain", "LLM integration", "MCP servers", "AI workflows"] },
     ],
@@ -74,6 +77,9 @@ export const resume: Resume = {
             company: "Three.ie",
             period: "2017 – Present | Dublin, Ireland",
             points: [
+                "Leading the infrastructure and platform modernisation of a business-critical internal telecoms platform — replacing a legacy single-EC2 raw-PHP application with a containerised Laravel app on a secure multi-account AWS foundation.",
+                "Authored the full infrastructure layer as code in Terraform — VPC networking, identity-based security-group trust chains, RDS with an IAM-authenticated RDS Proxy, ElastiCache Redis, and customer-managed KMS encryption — as reusable modules across Dev, Staging, and Production.",
+                "Designed AWS-native CI/CD (CodePipeline / CodeBuild / CodeDeploy) with blue/green ECS Fargate deployments and rollback, taken through formal architecture review with senior stakeholders.",
                 "Owned feature development across the full Laravel + React stack. Writing migrations, Eloquent models, service classes, queued jobs, and React components from spec to production.",
                 "Refactored legacy spaghetti PHP into testable service-oriented Laravel code; introduced PHPUnit test suites from near-zero coverage and enforced PR review standards.",
                 "Built and maintained RESTful APIs with versioned endpoints and OpenAPI docs; handled auth via Laravel Sanctum.",
@@ -108,10 +114,12 @@ export const resume: Resume = {
     ],
 
     projects: [
+        "Architecting a greenfield, multi-account AWS platform to replace a single hand-configured EC2 host — isolated Dev/Staging/Production accounts, VPC networking with identity-based security-group trust chains, ECS Fargate compute, an RDS database behind an IAM-authenticated proxy, ElastiCache, and customer-managed KMS encryption — defined entirely as code in Terraform.",
+        "Authored a reusable Terraform module structure (network, data, compute, pipeline) so environments are the same code with different variables: repeatable, reviewable as pull requests, and free of configuration drift.",
+        "Designed an AWS-native CI/CD pipeline (CodePipeline / CodeBuild / CodeDeploy) with blue/green ECS deployments and automated rollback, replacing manual SSH-based releases.",
+        "De-risked a legacy rebuild with a full audit — cataloguing 33 databases and ~21,000 files to map background jobs, live payment integrations, and security exposures — and produced the architecture and build-plan documentation that passed senior architecture review.",
         "Led the development of a cloud-based data platform for telecom asset management, enabling remote operations and reducing field intervention time by 30%.",
-        "Built tailored web applications for business-specific workflows, increasing non-technical user adoption.",
         "Modernised legacy PHP and JavaScript systems by refactoring them into a scalable Laravel and React architecture, significantly improving maintainability and test coverage.",
-        "Spearheaded the migration to AWS (S3, SQS, RDS, EC2, IAM, CloudWatch) and GitHub, streamlining CI/CD and strengthening security practices.",
         "Delivered AWS-integrated SaaS tools and dashboards used by cross-functional teams, including executives.",
     ],
 
@@ -120,7 +128,7 @@ export const resume: Resume = {
             name: "Trainer Tracker",
             url: "https://trainer-tracker.com",
             period: "Sep 2025 – Present",
-            stack: ["SvelteKit 2", "Svelte 5", "Laravel 12", "PostgreSQL", "Redis", "Docker", "Railway"],
+            stack: ["SvelteKit 2", "Svelte 5", "Laravel 13", "PostgreSQL", "Redis", "Docker", "Railway"],
             summary: "Full-stack SaaS training log built solo from scratch. SSR frontend, REST API backend, deployed live on Railway EU West with CI/CD auto-deploy on push to main.",
             points: [
                 "Dual-role system (Athlete / Coach) with pivot-table relationships — athletes manage workouts, measurements, templates and exercises; coaches get a read-only view of their athletes' data.",
@@ -157,6 +165,7 @@ export const resume: Resume = {
     extras: [
         "Fluent in English & Spanish",
         "Mentor & team collaborator",
+        "Infrastructure as code with Terraform — plan-and-review workflow, least-privilege IAM, secure-by-default AWS networking",
         "Building with MCP (Model Context Protocol) server integrations — connecting LLM tooling to real data sources (Google Drive, Gmail, Calendar) for agentic workflows",
         "Portfolio site built with React 19, TypeScript, Tailwind v4, Framer Motion, and LangChain/OpenAI",
     ],
