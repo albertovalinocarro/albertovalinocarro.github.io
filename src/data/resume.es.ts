@@ -49,7 +49,7 @@ export const resumeEs: Resume = {
         "Desarrollador Full-Stack Sénior",
         "Desarrollador Laravel y React Sénior",
         "AWS y Terraform · Infraestructura como código",
-        "Desarrollador Full-Stack Sénior y Cloud / Platform Engineer",
+        "Desarrollador Full-Stack Sénior y Cloud / Platform.",
         
     ],
 
