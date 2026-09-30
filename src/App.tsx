@@ -111,7 +111,7 @@ export default function App() {
                         {currentResume.name}
                     </h1>
                     <TypingHero titles={currentResume.typingTitles ?? resumeEn.typingTitles} />
-                    <p className="mt-5 max-w-xl text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    <p className="mt-5 text-zinc-600 dark:text-zinc-400 leading-relaxed">
                         {currentResume.labels?.heroTagline ?? resumeEn.labels.heroTagline}
                     </p>
 
