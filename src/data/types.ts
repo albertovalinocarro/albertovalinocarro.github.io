@@ -23,6 +23,11 @@ export interface Labels {
     downloadCv?: string;
     terminalTitle?: string;
     terminalHint?: string;
+    // Short labels for the header nav (section titles are too long there).
+    navSkills?: string;
+    navExperience?: string;
+    navProjects?: string;
+    navContact?: string;
 }
 
 export interface Experience {

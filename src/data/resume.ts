@@ -29,6 +29,10 @@ export const resume: Resume = {
     downloadCv: "Download CV (PDF)",
     terminalTitle: "Interactive Terminal",
     terminalHint: "Tab autocompletes",
+    navSkills: "Skills",
+    navExperience: "Experience",
+    navProjects: "Projects",
+    navContact: "Contact",
   },
   typingTitles: [
     "Full-Stack PHP Developer",
