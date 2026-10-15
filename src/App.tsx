@@ -222,9 +222,14 @@ export default function App() {
                             visible: { transition: { staggerChildren: 0.05 } },
                         }}
                     >
-                        {(currentResume.skillGroups ?? [{ label: "", items: currentResume.skills }]).map((group) => (
+                        {(currentResume.skillGroups ?? [{ label: "", items: currentResume.skills }]).map((group, i) => (
+                            // Keyed by position, not label: the label changes with the
+                            // language, and a new key would remount the group in its
+                            // "hidden" state after the one-time reveal has already run,
+                            // leaving it invisible. Both languages list the same groups
+                            // in the same order.
                             <motion.div
-                                key={group.label}
+                                key={i}
                                 variants={{
                                     hidden: { opacity: 0, y: 10 },
                                     visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: "easeOut" } },
