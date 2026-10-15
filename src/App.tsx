@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MotionConfig, motion } from "framer-motion";
 import { Menu, X, Mail, FileDown, ExternalLink } from "lucide-react";
 import { resume as resumeEn } from "./data/resume";
@@ -13,27 +13,76 @@ import { ContactForm } from "./components/ContactForm.tsx";
 import { ScrollProgress } from "./components/ScrollProgress.tsx";
 import { useScrollSpy } from "./hooks/useScrollSpy";
 
-const NAV_SECTION_IDS = ["experience", "skills", "personal-projects", "contact"];
+// Header nav, in the same order the sections appear on the page.
+const NAV_ITEMS = [
+    { id: "skills",            labelKey: "navSkills",     fallback: "Skills"     },
+    { id: "experience",        labelKey: "navExperience", fallback: "Experience" },
+    { id: "personal-projects", labelKey: "navProjects",   fallback: "Projects"   },
+    { id: "contact",           labelKey: "navContact",    fallback: "Contact"    },
+] as const;
+
+// Every section on the page, in order — including the ones the nav doesn't
+// list — so the scroll spy can clear the highlight when the reader is in one
+// of them (or back in the hero).
+const PAGE_SECTION_IDS = [
+    "top", "summary", "skills", "experience", "education",
+    "personal-projects", "projects", "extras", "contact", "terminal",
+] as const;
+
+// Tailwind's `md` breakpoint, where the desktop nav replaces the mobile menu.
+const DESKTOP_NAV_QUERY = "(min-width: 768px)";
 
 export default function App() {
     const [currentResume, setCurrentResume] = useState(resumeEn);
     const [menuOpen, setMenuOpen] = useState(false);
-    // NAV_SECTION_IDS is a module-level constant, so its identity is already
+    const headerRef = useRef<HTMLElement>(null);
+    const menuButtonRef = useRef<HTMLButtonElement>(null);
+    // PAGE_SECTION_IDS is a module-level constant, so its identity is already
     // stable across renders — no memoization needed.
-    const activeSection = useScrollSpy(NAV_SECTION_IDS);
+    const activeSection = useScrollSpy(PAGE_SECTION_IDS);
 
-    const navLinks = [
-        { label: currentResume.labels?.experience      ?? "Experience",        href: "#experience",        id: "experience"        },
-        { label: currentResume.labels?.skills          ?? "Skills",            href: "#skills",            id: "skills"            },
-        { label: currentResume.labels?.personalProjects ?? "Personal Projects", href: "#personal-projects", id: "personal-projects" },
-        { label: currentResume.labels?.contact         ?? "Contact",           href: "#contact",           id: "contact"           },
-    ];
+    const navLinks = NAV_ITEMS.map(({ id, labelKey, fallback }) => ({
+        id,
+        href: `#${id}`,
+        label: currentResume.labels?.[labelKey] ?? resumeEn.labels[labelKey] ?? fallback,
+    }));
+
+    // Close the mobile menu on Escape, on a tap outside the header, and when
+    // the viewport grows into the desktop layout (where the menu is hidden
+    // and would otherwise reappear open on the way back down).
+    useEffect(() => {
+        if (!menuOpen) return;
+
+        const desktop = window.matchMedia(DESKTOP_NAV_QUERY);
+        const close = () => setMenuOpen(false);
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                close();
+                menuButtonRef.current?.focus();
+            }
+        };
+        const onPointerDown = (e: PointerEvent) => {
+            if (!headerRef.current?.contains(e.target as Node)) close();
+        };
+        const onBreakpoint = (e: MediaQueryListEvent) => {
+            if (e.matches) close();
+        };
+
+        document.addEventListener("keydown", onKeyDown);
+        document.addEventListener("pointerdown", onPointerDown);
+        desktop.addEventListener("change", onBreakpoint);
+        return () => {
+            document.removeEventListener("keydown", onKeyDown);
+            document.removeEventListener("pointerdown", onPointerDown);
+            desktop.removeEventListener("change", onBreakpoint);
+        };
+    }, [menuOpen]);
 
     return (
         <MotionConfig reducedMotion="user">
         <div className="min-h-dvh bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
             {/* Header */}
-            <header className="sticky top-0 z-20 backdrop-blur bg-white/90 dark:bg-zinc-900/90 border-b border-[#e5e5e5] dark:border-zinc-800">
+            <header ref={headerRef} className="sticky top-0 z-20 backdrop-blur bg-white/90 dark:bg-zinc-900/90 border-b border-[#e5e5e5] dark:border-zinc-800">
                 {/* Main bar */}
                 <div className="mx-auto max-w-5xl px-4 sm:px-6 flex items-center justify-between gap-4" style={{ height: "72px" }}>
 
@@ -46,7 +95,7 @@ export default function App() {
                     </a>
 
                     {/* Nav — desktop only */}
-                    <nav className="hidden md:flex items-center" style={{ gap: "32px" }}>
+                    <nav aria-label="Main" className="hidden md:flex items-center" style={{ gap: "32px" }}>
                         {navLinks.map(({ label, href, id }) => (
                             <a
                                 key={href}
@@ -68,6 +117,7 @@ export default function App() {
                         <TranslationToggle onSwitch={setCurrentResume} />
                         <ThemeToggle />
                         <button
+                            ref={menuButtonRef}
                             className="md:hidden flex-shrink-0 p-1.5 text-zinc-700 dark:text-zinc-200 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
                             aria-label={menuOpen ? "Close menu" : "Open menu"}
                             aria-expanded={menuOpen}
@@ -82,19 +132,24 @@ export default function App() {
 
                 {/* Mobile dropdown */}
                 {menuOpen && (
-                    <div id="mobile-menu" className="md:hidden border-t border-[#e5e5e5] dark:border-zinc-800 bg-white dark:bg-zinc-900">
-                        {navLinks.map(({ label, href }) => (
+                    <nav id="mobile-menu" aria-label="Main" className="md:hidden border-t border-[#e5e5e5] dark:border-zinc-800 bg-white dark:bg-zinc-900">
+                        {navLinks.map(({ label, href, id }) => (
                             <a
                                 key={href}
                                 href={href}
+                                aria-current={activeSection === id ? "true" : undefined}
                                 onClick={() => setMenuOpen(false)}
-                                className="flex items-center px-6 text-[15px] text-zinc-700 dark:text-zinc-200 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors border-b border-[#f0f0f0] dark:border-zinc-800 last:border-b-0"
+                                className={`flex items-center px-6 text-[15px] hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors border-b border-[#f0f0f0] dark:border-zinc-800 last:border-b-0 ${
+                                    activeSection === id
+                                        ? "text-accent-600 dark:text-accent-400 font-medium"
+                                        : "text-zinc-700 dark:text-zinc-200"
+                                }`}
                                 style={{ height: "48px" }}
                             >
                                 {label}
                             </a>
                         ))}
-                    </div>
+                    </nav>
                 )}
 
                 {/* Reading progress */}

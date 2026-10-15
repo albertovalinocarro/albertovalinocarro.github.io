@@ -11,7 +11,7 @@ import type { Resume } from "./types";
 // (resume.es.test.ts) fails whenever resume.ts changes without this file
 // being retranslated — update the translation, then set SOURCE_CV_VERSION to
 // the new hash printed by the failing test.
-export const SOURCE_CV_VERSION = "1yj8hi9";
+export const SOURCE_CV_VERSION = "mcmc5p";
 
 export const resumeEs: Resume = {
   name: "Alberto Valiño Carro",
@@ -42,6 +42,10 @@ export const resumeEs: Resume = {
     downloadCv: "Descargar CV (PDF)",
     terminalTitle: "Terminal interactiva",
     terminalHint: "El tabulador autocompleta",
+    navSkills: "Competencias",
+    navExperience: "Experiencia",
+    navProjects: "Proyectos",
+    navContact: "Contacto",
   },
   typingTitles: [
     "Desarrollador PHP Full-Stack",
