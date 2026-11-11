@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MotionConfig, motion } from "framer-motion";
 import { Menu, X, Mail, FileDown, ExternalLink } from "lucide-react";
 import { resume as resumeEn } from "./data/resume";
+import { resumeEs } from "./data/resume.es";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { Section } from "./components/Section";
 import { ContactBar } from "./components/ContactBar";
@@ -40,6 +41,8 @@ export default function App() {
     // PAGE_SECTION_IDS is a module-level constant, so its identity is already
     // stable across renders — no memoization needed.
     const activeSection = useScrollSpy(PAGE_SECTION_IDS);
+    // The downloadable PDF follows the language currently shown on the page.
+    const cvLang = currentResume === resumeEs ? "es" : "en";
 
     const navLinks = NAV_ITEMS.map(({ id, labelKey, fallback }) => ({
         id,
@@ -182,8 +185,8 @@ export default function App() {
                             {currentResume.labels?.contact ?? "Get In Touch"}
                         </a>
                         <a
-                            href="/cv-alberto-valino-carro.pdf"
-                            download="CV-Alberto-Valino-Carro.pdf"
+                            href={`/cv-alberto-valino-carro_cv_${cvLang}.pdf`}
+                            download={`CV-Alberto-Valino-Carro-${cvLang.toUpperCase()}.pdf`}
                             className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium
                                        border border-zinc-300 dark:border-zinc-600
                                        text-zinc-700 dark:text-zinc-200
