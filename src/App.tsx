@@ -185,7 +185,7 @@ export default function App() {
                             {currentResume.labels?.contact ?? "Get In Touch"}
                         </a>
                         <a
-                            href={`/cv-alberto-valino-carro_cv_${cvLang}.pdf`}
+                            href={`/cv-alberto-valino-carro_${cvLang}.pdf`}
                             download={`CV-Alberto-Valino-Carro-${cvLang.toUpperCase()}.pdf`}
                             className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium
                                        border border-zinc-300 dark:border-zinc-600
