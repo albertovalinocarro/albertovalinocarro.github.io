@@ -159,15 +159,15 @@ export const resume: Resume = {
       ],
     },
     {
-      name: "Job Tracker",
+      name: "Job Tracker + AI Match Scorer",
       url: "https://job-tracker-avc.vercel.app",
       period: "May 2026 – Present",
-      stack: ["Vue 3", "TypeScript", "Pinia", "Vue Router", "Supabase", "Tailwind CSS v4", "Vercel"],
-      summary: "Full-stack job application tracker built with the Vue 3 Composition API, Pinia state management, and Supabase Auth with Row Level Security.",
+      stack: ["Vue 3", "TypeScript", "Pinia", "Supabase", "Python", "FastAPI", "OpenAI", "Pydantic", "LangChain", "ChromaDB"],
+      summary: "Tracks job applications and uses an LLM to score each one against my CV, returning a score, strengths, gaps, talking points and a suggested opening line.",
       points: [
-        "Composition API throughout — ref, reactive, computed, watch, onMounted used across stores and views.",
-        "Pinia stores for auth, applications, and companies with async Supabase actions and optimistic local state updates.",
-        "Vue Router with navigation guards, lazy-loaded routes, and dynamic params; Supabase Auth with per-user RLS policies.",
+        "Vue 3 + Supabase tracker with per-user row-level security, one stored CV, and saved match results that clear themselves when the job description changes.",
+        "Stateless FastAPI scoring service on GPT-4o-mini: Supabase JWTs verified against public keys, per-user rate limiting, input limits, prompt-injection delimiters, and JSON output validated against a Pydantic schema.",
+        "A separate local Python tool collects remote posts from RemoteOK's API, We Work Remotely's RSS feeds and the Tavily search API, then ranks them with LangChain and ChromaDB embedding retrieval.",
       ],
     },
     {

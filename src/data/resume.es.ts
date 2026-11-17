@@ -11,7 +11,7 @@ import type { Resume } from "./types";
 // (resume.es.test.ts) fails whenever resume.ts changes without this file
 // being retranslated — update the translation, then set SOURCE_CV_VERSION to
 // the new hash printed by the failing test.
-export const SOURCE_CV_VERSION = "1xgsdll";
+export const SOURCE_CV_VERSION = "1o5tcy5";
 
 export const resumeEs: Resume = {
   name: "Alberto Valiño Carro",
@@ -172,15 +172,15 @@ export const resumeEs: Resume = {
       ],
     },
     {
-      name: "Job Tracker",
+      name: "Job Tracker + AI Match Scorer",
       url: "https://job-tracker-avc.vercel.app",
       period: "May 2026 – Actualidad",
-      stack: ["Vue 3", "TypeScript", "Pinia", "Vue Router", "Supabase", "Tailwind CSS v4", "Vercel"],
-      summary: "Aplicación full-stack de seguimiento de candidaturas, construida con la Composition API de Vue 3, gestión de estado con Pinia y Supabase Auth con Row Level Security.",
+      stack: ["Vue 3", "TypeScript", "Pinia", "Supabase", "Python", "FastAPI", "OpenAI", "Pydantic", "LangChain", "ChromaDB"],
+      summary: "Seguimiento de candidaturas con un LLM que puntúa cada una frente a mi CV y devuelve una nota, puntos fuertes, carencias, temas para la entrevista y una frase de apertura.",
       points: [
-        "Composition API en todo el proyecto: ref, reactive, computed, watch y onMounted usados en stores y vistas.",
-        "Stores de Pinia para autenticación, candidaturas y empresas, con acciones asíncronas sobre Supabase y actualizaciones optimistas del estado local.",
-        "Vue Router con guardas de navegación, rutas con carga diferida y parámetros dinámicos; Supabase Auth con políticas RLS por usuario.",
+        "Tracker en Vue 3 + Supabase con seguridad a nivel de fila por usuario, un CV guardado y resultados de matching que se borran solos si cambia la oferta.",
+        "Servicio de puntuación en FastAPI sobre GPT-4o-mini: JWT de Supabase verificados con claves públicas, límite de peticiones por usuario, límites de tamaño, delimitadores contra prompt injection y salida JSON validada con un esquema Pydantic.",
+        "Una herramienta local en Python recopila ofertas remotas de la API de RemoteOK, los feeds RSS de We Work Remotely y la API de búsqueda Tavily, y las ordena con LangChain y recuperación por embeddings en ChromaDB.",
       ],
     },
     {
